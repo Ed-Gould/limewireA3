@@ -18,8 +18,8 @@ public class Department {
     }
 
     public boolean purchase(){
-        if ( pirateGame.getPlayer().payGold(getPrice()) ) {
-            if (product == "Defence") {
+        if (pirateGame.getPlayer().payGold(getPrice())) {
+            if (product.equals("Defence")) {
                 pirateGame.getPlayer().getPlayerShip().setDefence(pirateGame.getPlayer().getPlayerShip().getDefence() + 1);
                 return true;
             }
@@ -33,9 +33,9 @@ public class Department {
     }
 
     public int getPrice() {
-        if (product == "Defence") {
+        if (product.equals("Defence")) {
             return (int) (base_price * pow(2, max(0, pirateGame.getPlayer().getPlayerShip().getDefence() - 3)));
-        } else if (product == "Attack"){
+        } else if (product.equals("Attack")){
             return (int) (base_price * pow(2, max(0, pirateGame.getPlayer().getPlayerShip().getAttack() - 3)));
         }
         else {return 0;}

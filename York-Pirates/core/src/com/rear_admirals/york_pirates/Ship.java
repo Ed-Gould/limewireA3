@@ -84,29 +84,31 @@ public class Ship extends PhysicsActor {
         this.setWidth(this.sailingTexture.getWidth());
         this.setHeight(this.sailingTexture.getHeight());
         this.setOriginCentre();
-        this.setMaxSpeed(200);
-        this.setDeceleration(20);
+        this.setMaxSpeed(250);
+        this.setDeceleration(80);
         this.setEllipseBoundary();
     }
 
     public void playerMove(float dt) {
         this.setAccelerationXY(0,0);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             this.rotateBy(90 * dt);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
             this.rotateBy(-90 * dt );
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+        //Causes ship to accelerate (Lifting the anchor)
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
             this.setAnchor(false);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        //Causes ship to decelerate to a stop (Dropping the anchor)
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
             this.setAnchor(true);
         }
     }
 
-    public void damage(int amt){
-    	health = health - amt;
+    public void damage(int value){
+    	health = health - value;
     }
 
     @Override
