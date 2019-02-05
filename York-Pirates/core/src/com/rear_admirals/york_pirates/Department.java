@@ -20,11 +20,11 @@ public class Department {
     public boolean purchase(){
         if (pirateGame.getPlayer().payGold(getPrice())) {
             if (product.equals("Defence")) {
-                pirateGame.getPlayer().getPlayerShip().setDefence(pirateGame.getPlayer().getPlayerShip().getDefence() + 1);
+                pirateGame.getPlayer().getPlayerShip().addDefence(1);
                 return true;
             }
             else {
-                pirateGame.getPlayer().getPlayerShip().setAttack(pirateGame.getPlayer().getPlayerShip().getAttack() + 1);
+                pirateGame.getPlayer().getPlayerShip().addAttack(1);
                 return true;
             }
         } else {

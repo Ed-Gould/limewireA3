@@ -133,32 +133,22 @@ public class Ship extends PhysicsActor {
 
     public String getName() { return name; }
 
+    public void setName(String name) { this.name = name; }
+
     public int getAttack() {
         return attack;
     }
 
-    public int getDefence() {
-        return defence;
-    }
-
-    public int getAccuracy() { return accuracy; }
-
-    public int getHealth() {
-        return health;
-    }
-
-	public String getType() {
-		return type.getName();
-	}
-
-	public Texture getSailingTexture() { return this.sailingTexture; }
-
-    public boolean getIsBoss() { return this.isBoss; }
-
-	public void setName(String name) { this.name = name; }
-
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public void addAttack(int increase){
+        this.attack = attack + increase;
+    }
+
+    public int getDefence() {
+        return defence;
     }
 
     public void setDefence(int defence) {
@@ -166,14 +156,32 @@ public class Ship extends PhysicsActor {
         this.healthMax = defence * 20;
     }
 
+    public void addDefence(int increase){
+        this.defence = defence + increase;
+        this.healthMax = (defence) * 20;
+    }
+
+    public int getAccuracy() { return accuracy; }
+
     public void setAccuracy(int accuracy) {
         this.accuracy = accuracy;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
     }
 
+    public String getType() {
+		return type.getName();
+	}
+
     public void setType(ShipType type) { this.type = type; }
 
+    public Texture getSailingTexture() { return this.sailingTexture; }
+
+    public boolean getIsBoss() { return this.isBoss; }
 }

@@ -47,17 +47,17 @@ public class Player {
 
     public void setGold(int gold) { this.gold = gold; }
 
-	public boolean payGold(int amount){
-        if (amount > gold){
+	public boolean payGold(int value){
+        if (value > gold){
             return false;
         }
         else{
-            addGold(-amount);
+            addGold(-value);
             return true;
         }
     }
 
-    public void addPoints(int amount) { points += amount; }
+    public void addPoints(int value) { points += value; }
 
-    public void addGold(int amount) { gold = gold + amount; }
+    public void addGold(int value) { gold = gold + value; }
 }
