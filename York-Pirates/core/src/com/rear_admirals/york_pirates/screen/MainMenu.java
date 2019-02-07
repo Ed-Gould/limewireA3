@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.minigame.MiniGameScreen;
 import com.rear_admirals.york_pirates.screen.combat.CombatScreen;
 import com.rear_admirals.york_pirates.Ship;
 
@@ -49,6 +50,7 @@ public class MainMenu extends BaseScreen {
         TextButton combat_mode = new TextButton("Go to Combat Mode", pirateGame.getSkin());
         TextButton college_mode = new TextButton("Go to College screen", pirateGame.getSkin());
         TextButton department_mode = new TextButton("Go to Department screen", pirateGame.getSkin());
+        TextButton minigame_mode = new TextButton("Start Mini Game",pirateGame.getSkin());
 
         // Allows button to be clickable, and sets process for when clicked.
         combat_mode.addListener(new ClickListener(){
@@ -82,6 +84,12 @@ public class MainMenu extends BaseScreen {
                 dispose();
             }
         });
+        minigame_mode.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                pirateGame.setScreen(new MiniGameScreen(pirateGame));
+            }
+        });
 
         tableContainer.setActor(table);
 
@@ -96,6 +104,8 @@ public class MainMenu extends BaseScreen {
         table.add(college_mode).uniform().fill().padBottom(viewheight/40);
         table.row();
         table.add(department_mode).uniform().fill();
+        table.row();
+        table.add(minigame_mode).uniform().fill().padBottom(viewheight/40);
 
         stage.addActor(tableContainer);
 
