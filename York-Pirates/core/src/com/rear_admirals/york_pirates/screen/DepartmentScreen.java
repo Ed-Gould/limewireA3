@@ -16,7 +16,10 @@ import java.rmi.activation.ActivationGroup_Stub;
 public class DepartmentScreen extends BaseScreen {
 
     private Player player;
-    private Label pointsValueLabel, pointsTextLabel, goldValueLabel, goldTextLabel, healthTextLabel, healthValueLabel;
+    private Label healthTextLabel, healthValueLabel;
+    private Label goldValueLabel, goldTextLabel;
+    private Label pointsValueLabel, pointsTextLabel;
+
     private int healthFromMax;
 
     public DepartmentScreen(final PirateGame main, final Department department){

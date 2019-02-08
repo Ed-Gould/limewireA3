@@ -51,8 +51,10 @@ public class SailingScreen extends BaseScreen {
     private int[] backgroundLayers = {0,1,2};
     private int[] foregroundLayers = {3};
 
-    private Label pointsLabel;
-    private Label goldLabel;
+    private Label healthValueLabel, healthTextLabel;
+    private Label goldValueLabel, goldTextLabel;
+    private Label pointsValueLabel, pointsTextLabel;
+
     private Label mapMessage;
     private Label hintMessage;
 
@@ -69,19 +71,26 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
-        Label pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
-        pointsLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
-        pointsLabel.setAlignment(Align.left);
+        healthTextLabel = new Label("Health: ", main.getSkin(), "default_black");
+        healthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHealth()), main.getSkin(), "default_black");
+        healthValueLabel.setAlignment(Align.left);
 
-        Label goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
-        goldLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
-        goldLabel.setAlignment(Align.left);
+        pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
+        pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
+        pointsValueLabel.setAlignment(Align.left);
 
-        uiTable.add(pointsTextLabel);
-        uiTable.add(pointsLabel).width(pointsTextLabel.getWidth());
+        goldTextLabel = new Label("Gold:", main.getSkin(),"default_black");
+        goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
+        goldValueLabel.setAlignment(Align.left);
+
+        uiTable.add(healthTextLabel).fill();
+        uiTable.add(healthValueLabel).fill();
         uiTable.row();
         uiTable.add(goldTextLabel).fill();
-        uiTable.add(goldLabel).fill();
+        uiTable.add(goldValueLabel).fill();
+        uiTable.row();
+        uiTable.add(pointsTextLabel);
+        uiTable.add(pointsValueLabel).width(pointsTextLabel.getWidth());
 
         uiTable.align(Align.topRight);
         uiTable.setFillParent(true);
@@ -187,7 +196,7 @@ public class SailingScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         removeList.clear();
-        goldLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
+        goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         this.playerShip.playerMove(delta);
 
         Boolean x = false;
@@ -231,7 +240,7 @@ public class SailingScreen extends BaseScreen {
                     College college = obstacle.getCollege();
                     if (Gdx.input.isKeyPressed(Input.Keys.F)) {
                         System.out.println("A college");
-                        if (!playerShip.getCollege().getAlly().contains(college) && obstacle.getCollege().isBossDead() == false) {
+                        if (!playerShip.getCollege().getAlly().contains(college) && !obstacle.getCollege().isBossDead()) {
                             System.out.println("Enemy");
                             pirateGame.setScreen(new CombatScreen(pirateGame, new Ship(15, 15, 15, Brig, college, college.getName() + " Boss", true)));
                         } else {
@@ -275,7 +284,7 @@ public class SailingScreen extends BaseScreen {
             timer -= 1;
         }
 
-        pointsLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
     }
 
     @Override
