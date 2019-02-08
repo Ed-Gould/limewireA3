@@ -175,6 +175,10 @@ public class Ship extends PhysicsActor {
         this.health = health;
     }
 
+    public int getHealthFromMax(){
+        return this.healthMax - this.health;
+    }
+
     public String getType() {
 		return type.getName();
 	}
