@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -37,14 +38,17 @@ public class SailingScreen extends BaseScreen {
     private ArrayList<BaseActor> removeList;
     private ArrayList<BaseActor> regionList;
 
-    private int tileSize = 64;
-    private int tileCountWidth = 80;
-    private int tileCountHeight = 80;
 
     //calculate game world dimensions
-    private final int mapWidth = tileSize * tileCountWidth;
-    private final int mapHeight = tileSize * tileCountHeight;
     private TiledMap tiledMap;
+    private MapProperties mapProperties;
+    private int mapTileWidth;
+    private int mapTileHeight;
+
+    private int tilePixelSize;
+    private final int mapPixelWidth;
+    private final int mapPixelHeight;
+
 
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private OrthographicCamera tiledCamera;
@@ -114,9 +118,20 @@ public class SailingScreen extends BaseScreen {
         removeList = new ArrayList<BaseActor>();
         regionList = new ArrayList<BaseActor>();
 
-        // set up tile map, renderer and camera
+        // set up Tiled Map and associated properties/attributes (width/height)
         tiledMap = new TmxMapLoader().load("game_map.tmx");
+        mapProperties = tiledMap.getProperties();
+        mapTileWidth = mapProperties.get("width", Integer.class);
+        mapTileHeight = mapProperties.get("height", Integer.class);
+        tilePixelSize = mapProperties.get("tilewidth", Integer.class);
+        mapPixelWidth = tilePixelSize * mapTileWidth;
+        mapPixelHeight = tilePixelSize * mapTileHeight;
+
+
+        // Setup renderer
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+        // Setup camera
         tiledCamera = new OrthographicCamera();
         tiledCamera.setToOrtho(false, viewwidth, viewheight);
         tiledCamera.update();
@@ -268,8 +283,8 @@ public class SailingScreen extends BaseScreen {
         mainCamera.position.y = playerShip.getY() + playerShip.getOriginY();
 
         // bound camera to layout
-        mainCamera.position.x = MathUtils.clamp(mainCamera.position.x, viewwidth / 2, mapWidth - viewwidth / 2);
-        mainCamera.position.y = MathUtils.clamp(mainCamera.position.y, viewheight / 2, mapHeight - viewheight / 2);
+        mainCamera.position.x = MathUtils.clamp(mainCamera.position.x, viewwidth / 2, mapPixelWidth - viewwidth / 2);
+        mainCamera.position.y = MathUtils.clamp(mainCamera.position.y, viewheight / 2, mapPixelHeight - viewheight / 2);
         mainCamera.update();
 
         // adjust tilemap camera to stay in sync with main camera
