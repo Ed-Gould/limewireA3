@@ -17,8 +17,8 @@ public class Player {
 
     public Player() {
 	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
-        this.gold = 40;
-        this.points = 101;
+        this.gold = 0;
+        this.points = 0;
 
         attacks.add(Ram.attackRam);
         attacks.add(GrapeShot.attackSwivel);
