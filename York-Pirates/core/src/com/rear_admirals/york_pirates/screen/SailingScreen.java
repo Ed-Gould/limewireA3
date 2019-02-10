@@ -5,11 +5,13 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -20,13 +22,13 @@ import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.Ship;
+import sun.plugin2.util.PojoUtil;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.rear_admirals.york_pirates.College.*;
-import static com.rear_admirals.york_pirates.PirateGame.Chemistry;
-import static com.rear_admirals.york_pirates.PirateGame.Physics;
+import static com.rear_admirals.york_pirates.PirateGame.*;
 import static com.rear_admirals.york_pirates.ShipType.*;
 
 public class SailingScreen extends BaseScreen {
@@ -119,7 +121,7 @@ public class SailingScreen extends BaseScreen {
         regionList = new ArrayList<BaseActor>();
 
         // set up Tiled Map and associated properties/attributes (width/height)
-        tiledMap = new TmxMapLoader().load("game_map.tmx");
+        tiledMap = new TmxMapLoader().load("new_game_map.tmx");
         mapProperties = tiledMap.getProperties();
         mapTileWidth = mapProperties.get("width", Integer.class);
         mapTileHeight = mapProperties.get("height", Integer.class);
@@ -167,8 +169,11 @@ public class SailingScreen extends BaseScreen {
                 if (objectName.equals("derwent")) solid.setCollege(Derwent);
                 else if (objectName.equals("james")) solid.setCollege(James);
                 else if (objectName.equals("vanbrugh")) solid.setCollege(Vanbrugh);
+                else if (objectName.equals("alcuin")) solid.setCollege(Alcuin);
+                else if (objectName.equals("wentworth")) solid.setCollege(Wentworth);
                 else if (objectName.equals("chemistry"))solid.setDepartment(Chemistry);
                 else if (objectName.equals("physics")) solid.setDepartment(Physics);
+                else if (objectName.equals("economics")) solid.setDepartment(Economics);
                 else{
                     System.out.println("Not college/department: " + solid.getName());
                 }
@@ -193,6 +198,8 @@ public class SailingScreen extends BaseScreen {
                 if (object.getName().equals("derwentregion")) region.setCollege(Derwent);
                 else if (object.getName().equals("jamesregion")) region.setCollege(James);
                 else if (object.getName().equals("vanbrughregion")) region.setCollege(Vanbrugh);
+                else if (object.getName().equals("alcuinregion")) region.setCollege(Alcuin);
+                else if (object.getName().equals("wentworthregion")) region.setCollege(Wentworth);
                 regionList.add(region);
             } else {
                 System.err.println("Unknown RegionData object.");
@@ -323,7 +330,7 @@ public class SailingScreen extends BaseScreen {
             playerShip.addAccelerationAS(playerShip.getRotation(), 10000);
         } else{
             playerShip.setAccelerationXY(0,0);
-            playerShip.setDeceleration(100);
+            playerShip.setDeceleration(250);
         }
     }
 
