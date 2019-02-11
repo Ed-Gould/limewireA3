@@ -9,17 +9,17 @@
  </layer>
  <layer id="33" name="Background" width="78" height="52">
   <data encoding="base64" compression="zlib">
-   eJztmtluwjAQRcNDW7o9olJIH0NB5AMoLe/w/z9UW/JIV6Ms3rLYzJFGQqpE4tMbxx5cFIIgCMLceFkUxfti6rtIC+3sR9UpE3cPagyPqp4GHAs5q1WVGbjTzj5V3VStjb/YDsnZUdXWVJ24u5W676vxdoXP60juyFlpfB2Ns23iuVuBsxvzF+qOnJEvzNoRPn9ZXoPmkyGeCVcqde1n5g4dfgTc28ZkqgZHW+astPRG88kVKuTeYtDkbqlqp+o70BtmCzNHz+te1cXiGivmbA7eNJXxtIvgizir7zi0PJ9ULlm7zdDbUNCzyn2Vjlnj88gy0v92rujM/ULuaL6zdaaheYTmjljPQwqQPypbZ0Q1givZA/qh55RU15NTgWtNcWfPhr23xF0/mDVxZw/Pmuv68h5py1rOmdNjfg0YV5+z3DJHvqg/5ZsJvg9sKpf1+RzRrt7AF++tnMzfXf31uUs1azxb6Ip6KtQvsO1JcdrcpZy1DfiqYUw8b6HzOHeXsjMNjof38Xhvz6UP2nYt3/3zHMGeCvaPucd9RmOOifb3B5k4QMZSe65o3g5ZR/mCHlNzhuvGHNfWQ9C0rztNlL1U6NujpLpedMGnP9zVQ7iHZ9b3jFCft1wzh/sXn4wM7W2MM1IuNPnyGatNL8HX2xhnpGzp8+Uz1q7M+a5D+W/zeNYn1hkpW2z7c7G8hazd6TfmprNlY55tcHHmOt62ZzX0fdB1RmosbzbzUEhGmr4/xnsU3U11vqHv3Re6J0Z3MffX1QSukK5+Zqw98Tnid80JnokcxzgUuWZCEARBEITx+Aebp1b8
+   eJztmstug0AMRWHRNn0to6aELkkTwQckabtP/v+HOiONpVsLwrx4DPWVLEWqBMzpncE2zjKRSCQSzU1PeZa95lM/RVrSzE4qjgthd6fWcK/iYcC1ELNGRbkAdprZu4qrio3hF5shMatVbE00ibNbq+e+GG4X+L2JxI6YlYZXbZhtE/fdGphdGb9QdsSMeKHXavj9YXkPOk+G2BOuqtS9Hxk7ZPgW8GyF8VQDjLaMWWnJjc6TC0TIs8VQG7uVip2Kz0Bu6C30HO3XvYofi3usGbM5cNOqDKddBF6ks7rGoWN/Urh47TpDbkOJ9irnVTp6jZ8jq0j/27lKe+4LfEfnnS0zLTpH6OyItR9SEPGjsGVGqkZgJTWgn/SZkmo+OZUw1xR29irYe0vY9Qu9Juzsxb3mml/+R3V5bcme02t+DlhXH7OleY54UX/K1xO8DmwLl/x8jtKsXoAX760czd9d+fWxS9Vr3FvIinoq1C+w7UlxdbFL2WsF8GpgTdxvoec4Z5cyMy1cD+/j8d6eSx+0616+9fMchT0V7B9zjvsFrTmmNL9v8MQBPJbavqJzOySP8hVyTI3ZCfbOEnPrIcTrutqwm8J7qYjXKPg+SzlfdJFPf7ith9Aw3y3Zc74zQkXengv4fIdPSVi/+OTaRf531oPn7XUgtzFmpFzUxsunjqU8vu3baKjfxpiRslUfL5/6H+cYGnYd3zyUf5vHWZ9YM1K2su3P+XDjHgvN3ekbc9ts2ZizDS7MXNfLa27yXuj74NaM1FjcbHqaIfuKro/7NMZ7FNlNNd9w63tNjF4TviNi1tfVBKxQt/qZsWric8RrzUnITvpUblqqJ0QikUgkEo2nX79yWIw=
   </data>
  </layer>
  <layer id="34" name="Buildings" width="78" height="52">
   <data encoding="base64" compression="zlib">
-   eJzt2jsKwkAQBuC9kgdQfIDi40I+Kr2Brdf0AE4qJaQK2axhvw/+ZovsEJgphk0JAKjZNXIrXcQErSKb0kUM6B55RR6Z71lElpnvGNMhcoycShcyMbvINrLP8O2umdZ3zo3VF/+ga6b1nXM19UXXTOs753L2BQAAAJDPOfKMXDrO22d8NbundRpuJ1WLZvc0T8PtpAAAAGoyS3W9BRlS+y3IrGAtU/L7FqT5Z++y5QAAANDyASJHFnM=
+   eJzt2j0OAiEQhuG50h5A40+i8edCrlZ6A1uv6QEcKg2BLSawI+F9kq+hWCabMAGCCAAA6NlVc/MuokFrzda7iILumpfmUXmepWZVeY45HTUnzdm7kMbsNTvNocK3Uz3N2ufmWhf/INXTrH2up3WR6mnWPldzXQAAAAAAgHoumqdmTIzHY/gKd08bKXcn1Ytw97SQcndSAIDy2APYsAewYQ8AL7lzEKblzkGYljsHWQzS11uQkuK3IINjLS35fQsS/tnbtxwAAAAAQOQDVigbbg==
   </data>
  </layer>
  <layer id="36" name="Details" width="78" height="52">
   <data encoding="base64" compression="zlib">
-   eJzt2k1KAzEYxvEM9CweQPAIVnDvF3q4gl7BT3DjQlDQhQuLgoIFLyC1a99gYiMEoZ0kM6/5/+BhOqGTeUmbwAwxBgAA4H+YSd6DzzkdSo4kF5nvU8Ja8/t8s4l/ry07Vo+ScdB2n+dWRVy647XLtOC9J0tet5Hpt12En5uDZn5+0KSp7a59Fz8+E/aVw8ykW+fezHxNC+ekb1vEg+TZpW925D+2lXgO+DVtEmlbxqAHc1QLu274ebpf2bidJ+hjr7IxAwAAAKybrgtQZuieG14kJ4n6nEZSg+MW18bG7K9osO7+W1dBQmHbbbGq9Im9f/JtryULUSTVWlarbTd326xptdvlnRwAAEjsrOsCFPqQrAYZdVqNHqeSJ/M9Zv5o95uNuixKCTtWdi+IPdo9NVre3/SJ3euzwvMUAAAAgEy+APnsR+M=
+   eJzt2t1KwzAUB/AU9iw+gOAjTMF7p+IebqCv4Cd444WgoBdeKAoKG/gCMnc3ZoKJPUKwrj0n7Vn+Pzh0DW0SsiZ02TEGAAAAYDXMbLyTz5IObRzZuBBuJ4WN4vf5dhG/rik3Vo82nkjZvUxTSVz647WPacK2JzXv2xL6bpcR5mavKM+HBU/f7ppX8eOTsS4JM8O3zo1NuabRORnKlvFg48VH1+zaZ2yHeQ6ENW0SKauj14E5qoVbN8I8Pchs3M4Z6tjPbMwAAAAAAJybtjugzKb/3fBq44SpzmkkcnDc4N7YmP0VGvT9s3VFgqJlt8l6pU9s/ymUvaXsiCJca1muBn7uNlnTcreneE+OY08SoMo8UtZXPG9SCP+NLkjZEGNWadx2B1aQ5ryP1OamXO/q5n1QZwx1aLCovuTfPmyskxgx1t0FUjlfpzaezfeYhaPLNxvJNNcKqZwqN1YuF8QdXU6Nlv2bOqTyKF2uzxrecYAY4HkAAAAAAEZf5C1TNg==
   </data>
  </layer>
  <layer id="35" name="Overlay" width="78" height="52">
@@ -30,14 +30,14 @@
  <objectgroup id="5" name="ObjectData">
   <object id="1" name="player" x="2560" y="1344" width="25.3333" height="62.6667"/>
  </objectgroup>
- <objectgroup id="7" name="RegionData">
+ <objectgroup id="7" name="RegionData" visible="0">
   <object id="721" name="derwentregion" x="3648" y="1216" width="1280" height="960"/>
   <object id="722" name="vanbrughregion" x="1984" y="1792" width="1024" height="1088"/>
   <object id="723" name="jamesregion" x="512" y="2048" width="1152" height="1024"/>
   <object id="740" name="alcuinregion" x="2368" y="128" width="1088" height="960"/>
   <object id="742" name="wentworthregion" x="128" y="832" width="1088" height="1088"/>
  </objectgroup>
- <objectgroup id="6" name="PhysicsData">
+ <objectgroup id="6" name="PhysicsData" visible="0">
   <object id="15" name="bound" x="0" y="0" width="4992" height="5"/>
   <object id="16" name="bound" x="0" y="0" width="5" height="3328"/>
   <object id="18" name="bound" x="0" y="3323" width="4992" height="5"/>
