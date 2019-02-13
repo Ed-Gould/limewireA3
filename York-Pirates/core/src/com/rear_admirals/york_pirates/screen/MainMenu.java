@@ -104,7 +104,7 @@ public class MainMenu extends BaseScreen {
         table.row();
         table.add(college_mode).uniform().fill().padBottom(viewheight/40);
         table.row();
-        table.add(department_mode).uniform().fill();
+        table.add(department_mode).uniform().fill().padBottom(viewheight/40);
         table.row();
         table.add(miniGame_mode).uniform().fill().padBottom(viewheight/40);
 
