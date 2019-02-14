@@ -12,7 +12,6 @@ import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 
 public class DepartmentScreen extends BaseScreen {
-
     private Player player;
     private Label healthTextLabel, healthValueLabel;
     private Label goldValueLabel, goldTextLabel;
@@ -26,9 +25,7 @@ public class DepartmentScreen extends BaseScreen {
         // Get the amount of health required to heal to maximum
         this.healthFromMax = player.getPlayerShip().getHealthFromMax();
 
-
         Table uiTable = new Table();
-
 
         /* Creates labels for the health, gold, and points display.
         These displays are separated into two labels each:
@@ -99,7 +96,6 @@ public class DepartmentScreen extends BaseScreen {
         upgradeTable.row();
         upgradeTable.add(upgradeButton);
 
-
         // Create buttons used to show shop options
         Table shopTable = new Table();
         shopTable.setX(viewwidth * 0.35f, Align.center);
@@ -157,11 +153,6 @@ public class DepartmentScreen extends BaseScreen {
                 upgradeButton.setText("Upgrade Ship "+ department.getProduct() + " for " + department.getUpgradeCost() + " gold");
             }
         });
-
-
-
-
-
 
         mainStage.addActor(titleText);
         mainStage.addActor(healTable);
