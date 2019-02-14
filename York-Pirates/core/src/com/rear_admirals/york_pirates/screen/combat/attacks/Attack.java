@@ -38,7 +38,7 @@ public class Attack {
 
 	// Old function used to check if an attack hits the enemy.
 	@Deprecated
-	protected boolean doesHit( int accuracy, int mult, int bound) {
+	protected boolean doesHit(int accuracy, int mult, int bound) {
 		if ( accuracy * mult > Math.random() * bound) {
 			return true;
 		} else {
@@ -47,7 +47,7 @@ public class Attack {
 	}
 
 	// New function used to check if an attack hits the enemy.
-	protected boolean doesHit( int shipAcc, int accPercent) {
+	protected boolean doesHit(int shipAcc, int accPercent) {
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
 		if (accPercent * (1+(shipAcc-3)*0.02) > random){
 			return true;
