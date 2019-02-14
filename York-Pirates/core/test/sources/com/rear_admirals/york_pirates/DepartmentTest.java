@@ -22,9 +22,6 @@ public class DepartmentTest extends GameTest{
         Department defence_dep = new Department("Derwent", "Attack", pirateGame);
         Department attack_dep = new Department("Vanbrugh", "Defence", pirateGame);
 
-        System.out.println(pirateGame.getPlayer().getGold());
-        //pirateGame.getPlayer().payGold(defence_dep.getPrice());
-        //int initialD = pirateGame.getPlayer().getPlayerShip().getDefence();
-        //assertTrue();
+
     }
 }

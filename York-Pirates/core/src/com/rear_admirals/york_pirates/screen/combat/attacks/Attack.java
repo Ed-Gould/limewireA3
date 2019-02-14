@@ -47,18 +47,18 @@ public class Attack {
 	}
 
 	// New function used to check if an attack hits the enemy.
-	protected boolean doesHit( int shipAcc, int accPercent) {
+	protected boolean doesHit(int shipAcc, int accPercent) {
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
-		if (accPercent * (1+(shipAcc-3)*0.02) > random){
+		if (accPercent * (1+(shipAcc-3)*0.02) > random) {
 			return true;
-		} else{
+		} else {
 			return false;
 		}
 	}
 
 	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
+		if (doesHit(attacker.getAccuracy(), this.accPercent) ) {
 			this.damage = attacker.getAttack() * this.dmgMultiplier;
 			defender.damage(this.damage);
 			return this.damage;
