@@ -40,12 +40,15 @@ public class MiniGameScreen extends BaseScreen {
     private final int mapHeight = tileSize * tileCountHeight;
     private TiledMap tiledMap;
 
-    private final Rectangle playerRectangle = new Rectangle();
+    private Texture winTexture;
+    private Texture loseTexture;
 
     private boolean[][] isWall = new boolean[30][30];
     private boolean[][] isExit = new boolean[30][30];
     private boolean finish = false;
     private boolean isDead = false;
+
+    private float elementSize;
 
 
     private float screenWidth;
@@ -63,18 +66,15 @@ public class MiniGameScreen extends BaseScreen {
         super(main);
 
         player = new MiniGamePlayer();
-        System.out.println(player.getName());
-
-        mainStage.addActor(player);
-        System.out.println("player added");
 
         System.out.println("Mini Game");
         player = new MiniGamePlayer();
 
         enemies = new ArrayList<MiniGameEnemy>();
-
-
         batch = new SpriteBatch();
+
+        winTexture = new Texture("minigamewin.png");
+        loseTexture = new Texture("minigamelose.png");
 
         tiledMap = new TmxMapLoader().load("miniGame_try.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -86,6 +86,7 @@ public class MiniGameScreen extends BaseScreen {
 
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
+        elementSize = 20*(screenWidth/640);
         System.out.println(screenWidth+" "+screenHeight);
 
 
@@ -126,11 +127,11 @@ public class MiniGameScreen extends BaseScreen {
     public void drawEnemies(){
 
         for(MiniGameEnemy enemy : enemies){
-            batch.draw(enemy.getEnemyTexture(),enemy.getX()/(1920/screenWidth),enemy.getY()/(1080/screenHeight),20*(screenWidth/640),20*(screenWidth/640));
+            batch.draw(enemy.getEnemyTexture(),enemy.getX()/(1920/screenWidth),enemy.getY()/(1080/screenHeight),elementSize,elementSize);
         }
     }
     public void drawPlayer(){
-        batch.draw(player.getPlayerTexture(),player.getX()/(1920/screenWidth),player.getY()/(1080/screenHeight),20*(screenWidth/640),20*(screenWidth/640));
+        batch.draw(player.getPlayerTexture(),player.getX()/(1920/screenWidth),player.getY()/(1080/screenHeight),elementSize,elementSize);
     }
     @Override
     public void render(float delta) {
@@ -148,27 +149,21 @@ public class MiniGameScreen extends BaseScreen {
 
     @Override
     public void update(float delta){
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             System.out.println("ESCAPE");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
-        playerRectangle.set(
-                player.getX(),
-                player.getY(),
-                player.getWidth(),
-                player.getHeight()
-        );
-        //System.out.println(player.getX()+" "+player.getY());
-
 
         player.resetMoveAble();
         finish = player.moveAble(player,isWall,isExit);
-        isDead = checkIfDead(enemies,player);
+        isDead = player.isDead(enemies,player,elementSize);
         if(finish){
             System.out.println("finished");
+            pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,false));
         }
         if(isDead){
             System.out.println("is Dead");
+            pirateGame.setScreen(new MiniGameFinishScreen(pirateGame,true));
         }
 
 
@@ -176,23 +171,9 @@ public class MiniGameScreen extends BaseScreen {
         for(MiniGameEnemy enemy : enemies){
             enemy.enemyMovement(delta,isWall);
         }
+
         cameraMove();
 
-    }
-
-    public boolean checkIfDead(ArrayList<MiniGameEnemy> enemies, MiniGamePlayer player){
-        for(MiniGameEnemy enemy : enemies){
-//            System.out.println(enemy.getX()+" "+enemy.getY());
-//            System.out.println(player.getX()+" "+player.getY());
-//            System.out.println();
-            if(((player.getX()+player.getWidth() >= enemy.getX())&&(player.getX()+player.getWidth() <= enemy.getY()+enemy.getWidth()))
-            ||((player.getY()+player.getHeight() >= enemy.getY())&&(player.getY()+player.getHeight() <= enemy.getY() + enemy.getHeight()))){
-                isDead = true;
-            }else{
-                isDead = false;
-            }
-        }
-        return isDead;
     }
 
     public void cameraMove(){
@@ -213,6 +194,7 @@ public class MiniGameScreen extends BaseScreen {
     @Override
     public void dispose () {
         player.getPlayerTexture().dispose();
+        batch.dispose();
     }
 
 }

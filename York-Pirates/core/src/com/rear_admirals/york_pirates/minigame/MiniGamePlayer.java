@@ -12,7 +12,6 @@ import com.rear_admirals.york_pirates.base.PhysicsActor;
 import java.util.ArrayList;
 
 public class MiniGamePlayer extends PhysicsActor {
-    public boolean alive;
     public Texture playerTexture;
     public int moveSpeed = 250;
     public boolean moveLeft;
@@ -21,7 +20,6 @@ public class MiniGamePlayer extends PhysicsActor {
     public boolean moveDown;
 
     public MiniGamePlayer(){
-        this.alive = true;
         this.playerTexture = new Texture("miniGamePlayer.png");
         this.setSpeed(moveSpeed);
         this.moveLeft = true;
@@ -53,6 +51,18 @@ public class MiniGamePlayer extends PhysicsActor {
         }
     }
 
+    public boolean isDead(ArrayList<MiniGameEnemy> enemies, MiniGamePlayer player,float elementSize){
+        for(MiniGameEnemy enemy : enemies){
+            int x = (int)((enemy.getX())/64);
+            int y = (int)((enemy.getY())/64);
+            if(((int)(player.getX()/64)== x)&&((int)(player.getY()/64)==y)){
+
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void resetMoveAble(){
         this.moveUp = true;
         this.moveRight = true;
@@ -60,9 +70,9 @@ public class MiniGamePlayer extends PhysicsActor {
         this.moveDown = true;
     }
     public boolean moveAble( MiniGamePlayer player, boolean[][] isWall, boolean[][] isExit){
-        int x = (int)((player.getX()-player.getOriginX())/64);
-        int y = (int)((player.getY()-player.getOriginY())/64);
-        //System.out.println(x+" "+y);
+        int x = (int)((player.getX())/64);
+        int y = (int)((player.getY())/64);
+        System.out.println(x+" "+y);
         if(isExit[x][y]){
             return true;
         }

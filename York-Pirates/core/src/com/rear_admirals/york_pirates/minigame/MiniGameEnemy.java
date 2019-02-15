@@ -31,8 +31,8 @@ public class MiniGameEnemy extends PhysicsActor {
 
     public void enemyMovement(float dt, boolean[][] isWall){
 
-        int x = (int)((this.getX()-this.getOriginX())/64);
-        int y = (int)((this.getY()-this.getOriginY())/64);
+        int x = (int)((this.getX())/64);
+        int y = (int)((this.getY())/64);
         if(randomDrection ==0 ){
             if ((x - 1 < 0) || (isWall[x][y])) {
                 getRandomDrection();
