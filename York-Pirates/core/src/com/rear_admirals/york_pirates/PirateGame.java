@@ -26,9 +26,9 @@ public class PirateGame extends Game {
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
         player = new Player();
-		Chemistry = new Department("Chemistry", "Attack", this);
-		Physics = new Department("Physics", "Defence", this);
-		Economics = new Department("Economics", "Attack", this);
+		Chemistry = new Department("Chemistry", "attack", this);
+		Physics = new Department("Physics", "defence", this);
+		Economics = new Department("Economics", "accuracy", this);
 		this.sailingScene = new SailingScreen(this);
         setScreen(new MainMenu(this));
 	}

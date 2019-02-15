@@ -167,12 +167,25 @@ public class Ship extends PhysicsActor {
         this.accuracy = accuracy;
     }
 
+    public void addAccuracy(int increase){
+        this.accuracy = accuracy + increase;
+    }
+
     public int getHealth() {
         return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void heal(int value){ // Increase health by value
+        if (this.health + value > healthMax){
+            this.health = healthMax;
+        }
+        else{
+            this.health += value;
+        }
     }
 
     public int getHealthFromMax(){

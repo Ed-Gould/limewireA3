@@ -11,10 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.rear_admirals.york_pirates.*;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 
-import java.rmi.activation.ActivationGroup_Stub;
-
 public class DepartmentScreen extends BaseScreen {
-
     private Player player;
     private Label healthTextLabel, healthValueLabel;
     private Label goldValueLabel, goldTextLabel;
@@ -28,9 +25,7 @@ public class DepartmentScreen extends BaseScreen {
         // Get the amount of health required to heal to maximum
         this.healthFromMax = player.getPlayerShip().getHealthFromMax();
 
-
         Table uiTable = new Table();
-
 
         /* Creates labels for the health, gold, and points display.
         These displays are separated into two labels each:
@@ -65,49 +60,104 @@ public class DepartmentScreen extends BaseScreen {
 
         uiStage.addActor(uiTable);
 
-        Table optionsTable = new Table();
-        optionsTable.setFillParent(true);
-        Label title = new Label(department.getName(), main.getSkin());
+        // Create and align department screen title text
+        Label titleText = new Label(department.getName() + " Department", main.getSkin(), "title");
+        titleText.setAlignment(Align.top);
+        titleText.setFillParent(true);
 
-        final TextButton upgrade = new TextButton("Upgrade Ship "+ department.getProduct() + " for " + department.getPrice() + " gold", main.getSkin());
-        final Label message = new Label("", main.getSkin());
+        // Create and align text and buttons for healing options
+        Table healTable = new Table();
+        healTable.setX(viewwidth * -0.35f, Align.center);
+        healTable.setFillParent(true);
 
-        final TextButton heal = new TextButton("Repair Ship for "+ Integer.toString(getHealCost()) +" gold", main.getSkin());
-        upgrade.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                department.purchase();
-                upgrade.setText("Upgrade Ship "+ department.getProduct() + " for " + department.getPrice() + " gold");
-            }
-        });
+        final Label healText = new Label("Heal", main.getSkin(), "title");
+        final TextButton healFullBtn = new TextButton("Fully heal ship for "+ Integer.toString(getHealCost(healthFromMax)) +" gold", main.getSkin());
+        final TextButton healTenBtn = new TextButton("Heal 10 health for 1 gold", main.getSkin());
+        final Label healMessage = new Label("status", main.getSkin());
 
-        if (healthFromMax == 0) { heal.setText("Your ship is already fully repaired!"); }
 
-        heal.addListener(new ClickListener() {
+        healTable.add(healText).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healFullBtn).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healTenBtn).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healMessage);
+        
+        // Create buttons used to show upgrade options
+        Table upgradeTable = new Table();
+        upgradeTable.align(Align.center);
+        upgradeTable.setFillParent(true);
+
+        final Label upgradeText = new Label("Upgrade", main.getSkin(), "title");
+        final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getProduct() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
+
+        upgradeTable.add(upgradeText).padBottom(0.05f * Gdx.graphics.getHeight());
+        upgradeTable.row();
+        upgradeTable.add(upgradeButton);
+
+        // Create buttons used to show shop options
+        Table shopTable = new Table();
+        shopTable.setX(viewwidth * 0.35f, Align.center);
+        shopTable.setFillParent(true);
+
+        final Label shopText = new Label("Shop", main.getSkin(), "title");
+        final TextButton shopButton = new TextButton("Buy item", main.getSkin());
+
+        shopTable.add(shopText).padBottom(viewheight/40);
+        shopTable.row();
+        shopTable.add(shopButton);
+
+        if (healthFromMax == 0) { healMessage.setText("Your ship is fully repaired."); }
+
+        healFullBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (healthFromMax == 0){
-                    heal.setText("Your ship is already fully repaired!");
+                    healMessage.setText("Your ship is already fully repaired!");
                 }
                 else {
-                    if (player.payGold(getHealCost())) {
-                        System.out.println("charged");
+                    if (player.payGold(getHealCost(healthFromMax))) {
+                        System.out.println("Charged to fully heal");
                         player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax());
-                        message.setText("Successful repair");
+                        healMessage.setText("Ship fully repaired");
                     } else {
-                        message.setText("You don't have the funds to repair your ship");
+                        healMessage.setText("Not enough money to repair ship");
                     }
                 }
             }
         });
 
-        optionsTable.add(title);
-        optionsTable.row();
-        optionsTable.add(upgrade);
-        optionsTable.row();
-        optionsTable.add(heal);
+        healTenBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (healthFromMax == 0){
+                    healMessage.setText("Your ship is already fully repaired!");
+                }
+                else {
+                    if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
+                        System.out.println("Charged to heal 10hp");
+                        player.getPlayerShip().heal(10);
+                        healMessage.setText("10 health restored");
+                    } else {
+                        healMessage.setText("Not enough money to repair ship");
+                    }
+                }
+            }
+        });
 
-        mainStage.addActor(optionsTable);
+        upgradeButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                department.purchase();
+                upgradeButton.setText("Upgrade Ship "+ department.getProduct() + " for " + department.getUpgradeCost() + " gold");
+            }
+        });
+
+        mainStage.addActor(titleText);
+        mainStage.addActor(healTable);
+        mainStage.addActor(upgradeTable);
+        mainStage.addActor(shopTable);
         Gdx.input.setInputProcessor(mainStage);
     }
 
@@ -124,7 +174,7 @@ public class DepartmentScreen extends BaseScreen {
 
     }
 
-    public int getHealCost(){ // Function to get the cost to heal to full:
+    public int getHealCost(int value){ // Function to get the cost to heal to full:
         // if statement ensures player pays at least 1 gold to heal
         if (healthFromMax / 10 == 0){
             return 1;
