@@ -12,6 +12,7 @@ import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.minigame.MiniGameScreen;
 import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 
 public class CollegeScreen extends BaseScreen {
@@ -107,8 +108,13 @@ public class CollegeScreen extends BaseScreen {
         minigameTable.setFillParent(true);
 
         final Label minigameText = new Label("Minigame", main.getSkin(), "title");
+        final TextButton miniGameBtn = new TextButton("Start Mini Game", main.getSkin());
         minigameTable.add(minigameText).padBottom(0.05f * Gdx.graphics.getHeight());
         minigameTable.row();
+        minigameTable.add(miniGameBtn).padBottom(viewwidth/40);
+        minigameTable.row();
+
+
 
 
         if (healthFromMax == 0) { healMessage.setText("Your ship is already fully repaired!"); }
@@ -146,6 +152,13 @@ public class CollegeScreen extends BaseScreen {
                         healMessage.setText("Not enough money to repair ship");
                     }
                 }
+            }
+        });
+
+        miniGameBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pirateGame.setScreen(new MiniGameScreen(pirateGame));
             }
         });
 
