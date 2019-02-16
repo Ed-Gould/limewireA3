@@ -6,8 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ram extends Attack {
 
-	protected Ram(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent) {
-		super(name, desc, dmgMin, dmgMax, skipMove, accPercent);
+	protected Ram(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+		super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
 	}
 
 	// Ram requires a custom doAttack function and as such has its own class.
@@ -23,5 +23,5 @@ public class Ram extends Attack {
 		return 0;
 	}
 
-	public static Attack attackRam = new Ram("Ram","Ram the enemy ship, causes half damage to your own ship. ", 15,20, false, 85);
+	public static Attack attackRam = new Ram("Ram","Ram the enemy ship, causes half damage to your own ship. ", 15,20, false, 85, 0);
 }

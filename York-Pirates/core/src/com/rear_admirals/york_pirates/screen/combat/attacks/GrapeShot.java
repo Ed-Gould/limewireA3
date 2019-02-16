@@ -6,8 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GrapeShot extends Attack {
 
-    public GrapeShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent) {
-        super(name, desc, dmgMin, dmgMax, skipMove, accPercent);
+    public GrapeShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+        super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 
     // Grapeshot requires a custom doAttack function and as such has its own class.
@@ -27,6 +27,6 @@ public class GrapeShot extends Attack {
         return this.damage;
     }
 
-    public static Attack attackGrape = new GrapeShot("Grape Shot","Fire four very weak cannonballs. ",1 ,2,false, 75);
+    public static Attack attackGrape = new GrapeShot("Grape Shot","Fire four very weak cannonballs. ",1 ,2,false, 75, 4);
 }
 

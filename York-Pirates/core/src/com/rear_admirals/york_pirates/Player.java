@@ -22,7 +22,6 @@ public class Player {
         ownedAttacks.add(Ram.attackRam);
         ownedAttacks.add(Attack.attackSwivel);
         ownedAttacks.add(Attack.attackBoard);
-        ownedAttacks.add(ExplosiveShell.attackExplosive);
 
         equippedAttacks.add(Ram.attackRam);
         equippedAttacks.add(Attack.attackSwivel);
