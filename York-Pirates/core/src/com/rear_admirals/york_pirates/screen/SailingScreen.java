@@ -307,6 +307,7 @@ public class SailingScreen extends BaseScreen {
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        healthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHealth()));
     }
 
     @Override
