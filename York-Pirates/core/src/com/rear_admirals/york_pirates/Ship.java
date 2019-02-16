@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static com.rear_admirals.york_pirates.College.Derwent;
 
 public class Ship extends PhysicsActor {
@@ -14,7 +16,9 @@ public class Ship extends PhysicsActor {
     private float atkMultiplier;
 	private int defence;
 	private int accuracy;
-	private int health;
+	private int hullHealth;
+	private int sailHealth;
+	private double damageRatio;
     private ShipType type;
     private int healthMax;
     private Texture sailingTexture;
@@ -29,7 +33,8 @@ public class Ship extends PhysicsActor {
         this.defence = 5;
         this.accuracy = 5;
         this.healthMax = defence*20;
-        this.health = healthMax;
+        this.hullHealth = healthMax / 2;
+        this.sailHealth = healthMax / 2;
         this.college = Derwent;
     }
 
@@ -39,7 +44,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
         this.healthMax = defence*20;
-        this.health = healthMax;
+        this.hullHealth = healthMax / 2;
+        this.sailHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
@@ -52,7 +58,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
         this.healthMax = defence*20;
-        this.health = healthMax;
+        this.hullHealth = healthMax / 2;
+        this.sailHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
@@ -72,7 +79,8 @@ public class Ship extends PhysicsActor {
         this.name = name;
         this.healthMax = defence*20;
         this.college = college;
-        this.health = healthMax;
+        this.hullHealth = healthMax / 2;
+        this.sailHealth = healthMax / 2;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         this.isBoss = isBoss;
         setupShip();
@@ -105,8 +113,16 @@ public class Ship extends PhysicsActor {
         }
     }
 
-    public void damage(int value){
-    	health = health - value;
+    public void damage(String attack, int value) {
+        if (attack.equals("Broadside")) {
+            damageRatio = ThreadLocalRandom.current().nextInt(1, 25);
+            sailHealth -= value * (damageRatio / 100);
+            hullHealth -= value * ((100 - damageRatio) / 100);
+        } else if (attack.equals("Grape Shot")) {
+            sailHealth -= value;
+        } else if (attack.equals("Ram") || (attack.equals("Board"))) {
+            hullHealth -= value;
+        }
     }
 
     @Override
@@ -169,25 +185,40 @@ public class Ship extends PhysicsActor {
         this.accuracy = accuracy + increase;
     }
 
-    public int getHealth() {
-        return health;
+    public int getHullHealth() {
+        return hullHealth;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHullHealth(int hullHealth) {
+        this.hullHealth = hullHealth;
     }
 
-    public void heal(int value){ // Increase health by value
-        if (this.health + value > healthMax){
-            this.health = healthMax;
+    public int getSailHealth() { return sailHealth; }
+
+    public void setSailHealth(int sailHealth) { this.sailHealth = sailHealth; }
+
+    public void healHull(int value) {
+        if (this.hullHealth + value > healthMax / 2) {
+            this.hullHealth = healthMax / 2;
+        } else {
+            this.hullHealth += value;
         }
-        else{
-            this.health += value;
+    }
+
+    public void healSail(int value) {
+        if (this.sailHealth + value > healthMax / 2) {
+            this.sailHealth = healthMax / 2;
+        } else {
+            this.sailHealth += value;
         }
     }
 
-    public int getHealthFromMax(){
-        return this.healthMax - this.health;
+    public int getHullHealthFromMax() {
+        return this.healthMax - this.hullHealth;
+    }
+
+    public int getSailHealthFromMax() {
+        return this.healthMax - this.sailHealth;
     }
 
     public String getType() {
