@@ -9,10 +9,9 @@ public class Attack {
 	protected String desc;
 	protected int damage;
 	protected int dmgMin, dmgMax; // Minimum and maximum damage attacks can do (randomly in this range)
-	protected double accMultiplier;
+	protected int accPercent;
 	protected boolean skipMoveStatus;
 	protected boolean skipMove;
-	protected int accPercent;
 
 	// Generic constructor. Creates simple broadside attack.
 	protected Attack() {
@@ -20,32 +19,20 @@ public class Attack {
 		this.desc = "Fire a broadside at your enemy.";
 		this.dmgMin = 5;
 		this.dmgMax = 8;
-		this.accMultiplier = 1;
 		this.skipMove = false;
 		this.skipMoveStatus = skipMove;
 	}
 
 	// Custom constructor. Can be used to create any attack which applies a multiple of the attacker's damage
 	// to the defender. Can also take a turn to charge and have custom accuracy.
-	protected Attack(String name, String desc, int dmgMin, int dmgMax, double accMultiplier, boolean skipMove, int accPercent) {
+	protected Attack(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent) {
 		this.name = name;
 		this.desc = desc + "Base damage from " + dmgMin + " to " + dmgMax + ". Base accuracy of " + accPercent;
 		this.dmgMin = dmgMin;
 		this.dmgMax = dmgMax;
-		this.accMultiplier = accMultiplier;
 		this.skipMove = skipMove;
 		this.skipMoveStatus = skipMove;
 		this.accPercent = accPercent;
-	}
-
-	// Old function used to check if an attack hits the enemy.
-	@Deprecated
-	protected boolean doesHit(int accuracy, int mult, int bound) {
-		if ( accuracy * mult > Math.random() * bound) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	// New function used to check if an attack hits the enemy.
@@ -82,7 +69,7 @@ public class Attack {
 	}
 
 	// attacks to be used in the game are defined here.
-	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",5,8,2,false,60);
-	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",4,7, 2,false,75);
-	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 15, 17,2,true,95);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",5,8,false,60);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",4,7,false,75);
+	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 15, 17,true,95);
 }
