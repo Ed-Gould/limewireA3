@@ -22,8 +22,8 @@ public class Player {
 
         attacks.add(Ram.attackRam);
         attacks.add(Attack.attackSwivel);
-        //attacks.add(Attack.attackBoard);
-        attacks.add(DoubleShot.attackDouble);
+        attacks.add(Attack.attackBoard);
+        attacks.add(ExplosiveShell.attackExplosive);
     }
 
     public Player(Ship ship) {
