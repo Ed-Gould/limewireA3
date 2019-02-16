@@ -30,6 +30,8 @@ public class CollegeScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
+        player.equippedAttacks.remove(Attack.attackNone);
+
         /* Creates labels for the health, gold, and points display.
         These displays are separated into two labels each:
         A "TextLabel": These labels are composed of a text element (either the world "Points" or "Gold")
@@ -94,9 +96,36 @@ public class CollegeScreen extends BaseScreen {
         shipTable.add(shipText).padBottom(0.05f * Gdx.graphics.getHeight());
         shipTable.row();
 
-        for (Attack attack: player.ownedAttacks){
-            shipTable.add(new TextButton(attack.getName(), main.getSkin())).padBottom(viewheight/40);;
+        // Add buttons to unequip weapons
+        for (final Attack attack: player.equippedAttacks){
+            TextButton btn = new TextButton("Unequip: " + attack.getName(), main.getSkin());
+
+            btn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    player.equippedAttacks.remove(attack);
+                }
+            });
+            shipTable.add(btn).padBottom(viewheight/40);
             shipTable.row();
+        }
+
+        // Add buttons to equip weapons
+        for (final Attack attack: player.ownedAttacks){
+            if (!player.equippedAttacks.contains(attack)){
+                TextButton btn = new TextButton("Equip: " + attack.getName(), main.getSkin());
+
+                btn.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        if (!player.equippedAttacks.contains(attack) && player.equippedAttacks.size() < 3){
+                            player.equippedAttacks.add(attack);
+                        }
+                    }
+                });
+                shipTable.add(btn).padBottom(viewheight/40);
+                shipTable.row();
+            }
         }
 
         // Create buttons used to show minigame options
