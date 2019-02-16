@@ -12,6 +12,7 @@ import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 
 public class CollegeScreen extends BaseScreen {
     private Player player;
@@ -67,7 +68,7 @@ public class CollegeScreen extends BaseScreen {
 
         // Create and align text and buttons for healing options
         Table healTable = new Table();
-        healTable.setX(viewwidth * -0.2f, Align.center);
+        healTable.setX(viewwidth * -0.35f, Align.center);
         healTable.setFillParent(true);
 
         final Label healText = new Label("Heal", main.getSkin(), "title");
@@ -85,12 +86,30 @@ public class CollegeScreen extends BaseScreen {
 
         // Create buttons used to show upgrade options
         Table shipTable = new Table();
-        shipTable.setX(viewwidth * 0.2f, Align.center);
+        shipTable.align(Align.center);
         shipTable.setFillParent(true);
 
         final Label shipText = new Label("Ship management", main.getSkin(), "title");
         shipTable.add(shipText).padBottom(0.05f * Gdx.graphics.getHeight());
         shipTable.row();
+
+        for (Attack attack: player.ownedAttacks){
+            shipTable.add(new TextButton(attack.getName(), main.getSkin())).padBottom(viewheight/40);;
+            shipTable.row();
+        }
+
+        // Create buttons used to show minigame options
+        /**TODO: Make a button and add it to the minigameTable, after the line "minigameTable.row()"
+         * This will show up on the college menu
+         * */
+        Table minigameTable = new Table();
+        minigameTable.setX(viewwidth * 0.35f, Align.center);
+        minigameTable.setFillParent(true);
+
+        final Label minigameText = new Label("Minigame", main.getSkin(), "title");
+        minigameTable.add(minigameText).padBottom(0.05f * Gdx.graphics.getHeight());
+        minigameTable.row();
+
 
         if (healthFromMax == 0) { healMessage.setText("Your ship is already fully repaired!"); }
 
@@ -132,6 +151,7 @@ public class CollegeScreen extends BaseScreen {
 
         mainStage.addActor(healTable);
         mainStage.addActor(shipTable);
+        mainStage.addActor(minigameTable);
         Gdx.input.setInputProcessor(mainStage);
     }
 

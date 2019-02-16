@@ -36,9 +36,9 @@ public class Attack {
 	}
 
 	// New function used to check if an attack hits the enemy.
-	protected boolean doesHit(int shipAcc, int accPercent) {
+	protected boolean doesHit(float shipMultiplier, int accPercent) {
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
-		if (accPercent * (1+(shipAcc-3)*0.02) > random){
+		if (accPercent * shipMultiplier > random){
 			return true;
 		} else{
 			return false;
@@ -47,7 +47,7 @@ public class Attack {
 
 	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
+		if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
 		    int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
 			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
 			defender.damage(this.damage);
@@ -72,4 +72,5 @@ public class Attack {
 	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",5,8,false,60);
 	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",4,7,false,75);
 	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 15, 17,true,95);
+	public static Attack attackNone = new Attack("No attack","You haven't got any weapons in this slot, Equip an attack! ",0,0,false,0);
 }
