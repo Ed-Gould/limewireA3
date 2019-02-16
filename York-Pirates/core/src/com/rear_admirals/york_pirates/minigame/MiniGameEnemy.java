@@ -1,12 +1,7 @@
 package com.rear_admirals.york_pirates.minigame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
-
-import java.awt.*;
-import java.util.ArrayList;
-
 public class MiniGameEnemy extends PhysicsActor {
     public String moveDirection;
     public int moveSpeed = 150;
@@ -34,7 +29,7 @@ public class MiniGameEnemy extends PhysicsActor {
         int x = (int)((this.getX())/64);
         int y = (int)((this.getY())/64);
         if(randomDrection ==0 ){
-            if ((x - 1 < 0) || (isWall[x][y])) {
+            if ((x - 1 < 0) || (isWall[x][y]) ||(x >= 29)) {
                 getRandomDrection();
                 enemyMovement(dt,isWall);
             }else{
@@ -42,7 +37,7 @@ public class MiniGameEnemy extends PhysicsActor {
             }
 
         }else if(randomDrection == 1) {
-            if ((y - 1 < 0) || (isWall[x][y])) {
+            if ((y - 1 < 0) || (isWall[x][y]) || (y >= 16)) {
                 getRandomDrection();
                 enemyMovement(dt,isWall);
             }else{

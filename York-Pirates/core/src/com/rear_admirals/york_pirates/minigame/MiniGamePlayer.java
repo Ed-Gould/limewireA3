@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 import java.util.ArrayList;
@@ -70,9 +68,12 @@ public class MiniGamePlayer extends PhysicsActor {
         this.moveDown = true;
     }
     public boolean moveAble( MiniGamePlayer player, boolean[][] isWall, boolean[][] isExit){
-        int x = (int)((player.getX())/64);
-        int y = (int)((player.getY())/64);
-        System.out.println(x+" "+y);
+
+        int x = (int)(Math.round(player.getX())/64);
+        int y = (int)(Math.round(player.getY())/64);
+//        System.out.println(player.getX()+" "+player.getY());
+//        System.out.println(x+" "+y);
+
         if(isExit[x][y]){
             return true;
         }
