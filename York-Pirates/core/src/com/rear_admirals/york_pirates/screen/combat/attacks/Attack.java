@@ -29,7 +29,7 @@ public class Attack {
 	// to the defender. Can also take a turn to charge and have custom accuracy.
 	protected Attack(String name, String desc, int dmgMin, int dmgMax, double accMultiplier, boolean skipMove, int accPercent) {
 		this.name = name;
-		this.desc = desc;
+		this.desc = desc + "Base damage from " + dmgMin + " to " + dmgMax + ". Base accuracy of " + accPercent;
 		this.dmgMin = dmgMin;
 		this.dmgMax = dmgMax;
 		this.accMultiplier = accMultiplier;
@@ -82,7 +82,7 @@ public class Attack {
 	}
 
 	// attacks to be used in the game are defined here.
-	public static Attack attackMain = new Attack("Broadside","Normal cannons. Fire a broadside at your enemy.",5,8,2,false,60);
-	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. High accuracy, low damage attack.",4,7, 2,false,75);
-	public static Attack attackBoard = new Attack("Board","Board enemy ship. Charges attack over a turn, medium - high damage and very high accuracy", 15, 17,2,true,95);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",5,8,2,false,60);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",4,7, 2,false,75);
+	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 15, 17,2,true,95);
 }

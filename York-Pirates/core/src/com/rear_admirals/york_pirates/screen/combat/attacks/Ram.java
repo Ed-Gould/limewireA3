@@ -23,5 +23,5 @@ public class Ram extends Attack {
 		return 0;
 	}
 
-	public static Attack attackRam = new Ram("Ram","Ram your ship into your enemy, causing damage to both of you.", 15,20, 1, false, 85);
+	public static Attack attackRam = new Ram("Ram","Ram your ship into your enemy, causing damage to both of you. ", 15,20, 1, false, 85);
 }
