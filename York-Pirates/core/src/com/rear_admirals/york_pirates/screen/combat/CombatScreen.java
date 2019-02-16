@@ -27,12 +27,16 @@ public class CombatScreen extends BaseScreen {
 
     // Labels changed throughout the scene
     public Label descriptionLabel;
-    private Label playerHPLabel;
-    private Label enemyHPLabel;
+    private Label playerHullHPLabel;
+    private Label playerSailHPLabel;
+    private Label enemyHullHPLabel;
+    private Label enemySailHPLabel;
 
     // Health bars of both ships
-    private ProgressBar playerHP;
-    private ProgressBar enemyHP;
+    private ProgressBar playerHullHP;
+    private ProgressBar playerSailHP;
+    private ProgressBar enemyHullHP;
+    private ProgressBar enemySailHP;
 
     // Image textures and images for the various stages
     private Texture bg_texture;
@@ -108,27 +112,49 @@ public class CombatScreen extends BaseScreen {
         CombatShip enemyShip = new CombatShip("ship2.png",viewwidth/3);
 
         Label shipName = new Label(player.getPlayerShip().getName(),pirateGame.getSkin(), "default_black");
-        playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());
-        playerHPLabel = new Label(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax(), pirateGame.getSkin());
+        playerHullHP = new ProgressBar(0, player.getPlayerShip().getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
+        playerHullHPLabel = new Label("Hull: " + player.getPlayerShip().getHullHealth() + "/" + player.getPlayerShip().getHealthMax() / 2, pirateGame.getSkin());
+        playerSailHP = new ProgressBar(0, player.getPlayerShip().getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
+        playerSailHPLabel = new Label("Sail: " + player.getPlayerShip().getSailHealth() + "/" + player.getPlayerShip().getHealthMax() / 2, pirateGame.getSkin());
+        //playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());
+        //playerHPLabel = new Label(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax(), pirateGame.getSkin());
 
-        playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
-        playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
+        playerHullHP.getStyle().background.setMinHeight(playerHullHP.getPrefHeight() * 2);
+        playerHullHP.getStyle().knobBefore.setMinHeight(playerHullHP.getPrefHeight());
+        playerSailHP.getStyle().background.setMinHeight(playerSailHP.getPrefHeight() * 2);
+        playerSailHP.getStyle().background.setMinHeight(playerSailHP.getPrefHeight());
+        //playerHP.getStyle().background.setMinHeight(playerHP.getPrefHeight()*2); //Setting vertical size of progress slider (Class implementation is slightly weird)
+        //playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
         Label enemyName = new Label(enemy.getName(), pirateGame.getSkin(),"default_black");
-        enemyHP = new ProgressBar(0, enemy.getHealthMax(),0.1f,false,pirateGame.getSkin());
-        enemyHPLabel = new Label(enemy.getHealth()+"/" + enemy.getHealthMax(), pirateGame.getSkin());
+        enemyHullHP = new ProgressBar(0, enemy.getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
+        enemyHullHPLabel = new Label("Hull: " + enemy.getHullHealth() + "/" + enemy.getHealthMax() / 2, pirateGame.getSkin());
+        enemySailHP = new ProgressBar(0, enemy.getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
+        enemySailHPLabel = new Label("Sail: " + enemy.getHullHealth() + "/" + enemy.getHealthMax() / 2, pirateGame.getSkin());
+        //enemyHP = new ProgressBar(0, enemy.getHealthMax(),0.1f,false,pirateGame.getSkin());
+        //enemyHPLabel = new Label(enemy.getHealth()+"/" + enemy.getHealthMax(), pirateGame.getSkin());
 
-        playerHP.setValue(player.getPlayerShip().getHealthMax());
-        enemyHP.setValue(enemy.getHealthMax());
+        playerHullHP.setValue(player.getPlayerShip().getHealthMax() / 2);
+        playerSailHP.setValue(player.getPlayerShip().getHealthMax() / 2);
+        enemyHullHP.setValue(player.getPlayerShip().getHealthMax() / 2);
+        enemySailHP.setValue(player.getPlayerShip().getHealthMax() / 2);
+        //playerHP.setValue(player.getPlayerShip().getHealthMax());
+        //enemyHP.setValue(enemy.getHealthMax());
 
-        Table playerHPTable = new Table();
-        Table enemyHPTable = new Table();
+        Table playerHullHPTable = new Table();
+        Table playerSailHPTable = new Table();
+        Table enemyHullHPTable = new Table();
+        Table enemySailHPTable = new Table();
 
-        playerHPTable.add(playerHPLabel).padRight(viewwidth/36f);
-        playerHPTable.add(playerHP).width(viewwidth/5);
+        playerHullHPTable.add(playerHullHPLabel).padRight(viewwidth/36f);
+        playerHullHPTable.add(playerHullHP).width(viewwidth/5);
+        playerSailHPTable.add(playerSailHPLabel).padRight(viewwidth/36f);
+        playerSailHPTable.add(playerSailHP).width(viewwidth/5);
 
-        enemyHPTable.add(enemyHPLabel).padRight(viewwidth/36f);
-        enemyHPTable.add(enemyHP).width(viewwidth/5);
+        enemyHullHPTable.add(enemyHullHPLabel).padRight(viewwidth/36f);
+        enemyHullHPTable.add(enemyHullHP).width(viewwidth/5);
+        enemySailHPTable.add(enemySailHPLabel).padRight(viewwidth/36f);
+        enemySailHPTable.add(enemySailHP).width(viewwidth/5);
 
         Label screenTitle = new Label("Combat Mode", pirateGame.getSkin(),"title_black");
         screenTitle.setAlignment(Align.center);
@@ -190,8 +216,11 @@ public class CombatScreen extends BaseScreen {
         rootTable.add(myShip);
         rootTable.add(enemyShip);
         rootTable.row();
-        rootTable.add(playerHPTable);
-        rootTable.add(enemyHPTable);
+        rootTable.add(playerHullHPTable);
+        rootTable.add(enemyHullHPTable);
+        rootTable.row();
+        rootTable.add(playerSailHPTable);
+        rootTable.add(enemySailHPTable);
         rootTable.row();
         rootTable.add(textBox).colspan(2).fillX().height(viewheight/9f).pad(viewheight/12,0,viewheight/12,0);
         tableContainer.setActor(rootTable);
@@ -296,14 +325,18 @@ public class CombatScreen extends BaseScreen {
                     }
 
                     if (damage == 0) {
-                        System.out.println("Player "+currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                        //System.out.println("Player "+currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());======
+                        System.out.println("Player "+currentAttack.getName() + " MISSED, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHullHealth() + ", Enemy Ship Health: " + enemy.getHullHealth());
                         dialog("Attack Missed", BattleEvent.ENEMY_MOVE);
                     } else {
-                        System.out.println("Player "+currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
-                        if (player.getPlayerShip().getHealth() <= 0) {
+                        //System.out.println("Player "+currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());===
+                        System.out.println("Player "+currentAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHullHealth() + ", Enemy Ship Health: " + enemy.getHullHealth());
+                        //if (player.getPlayerShip().getHealth() <= 0) {=================================================================
+                        if (player.getPlayerShip().getHullHealth() <= 0) {
                             System.out.println("Player has died");
                             dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.PLAYER_DIES);
-                        } else if (enemy.getHealth() <= 0) {
+                        //} else if (enemy.getHealth() <= 0) {===========================================================================
+                        } else if (enemy.getHullHealth() <= 0) {
                             System.out.println("Enemy has died");
                             dialog("You dealt " + damage + " with " + currentAttack.getName() + "!", BattleEvent.ENEMY_DIES);
                         } else{
@@ -322,14 +355,17 @@ public class CombatScreen extends BaseScreen {
                     System.out.println("Enemy " + enemyAttack.getName() + " ATTACK MISSED");
                     message = "Enemies " + enemyAttack.getName() + " missed.";
                 } else {
-                    System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());
+                    //System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHealth() + ", Enemy Ship Health: " + enemy.getHealth());========
+                    System.out.println("ENEMY " + enemyAttack.getName() + " SUCCESSFUL, damage dealt: " + damage + ", Player Ship Health: " + player.getPlayerShip().getHullHealth() + ", Enemy Ship Health: " + enemy.getHullHealth());
                     message = "Enemy "+enemy.getName()+ " dealt " + damage + " with " + enemyAttack.getName()+ "!";
                 }
 
-                if (player.getPlayerShip().getHealth() <= 0) {
+                //if (player.getPlayerShip().getHealth() <= 0) {==================================================================
+                if (player.getPlayerShip().getHullHealth() <= 0) {
                     System.out.println("Player has died");
                     dialog("Enemies " + enemyAttack.getName() + " hit you for "+ damage, BattleEvent.PLAYER_DIES);
-                } else if (enemy.getHealth() <= 0) {
+                //} else if (enemy.getHealth() <= 0) {========================================================================
+                } else if (enemy.getHullHealth() <= 0) {
                     System.out.println("Enemy has died");
                     dialog("Enemies " + enemyAttack.getName() + " hit you for "+ damage, BattleEvent.ENEMY_DIES);
                 } else {
@@ -345,7 +381,8 @@ public class CombatScreen extends BaseScreen {
                 textBox.setStyle(pirateGame.getSkin().get("red", TextButton.TextButtonStyle.class));
                 player.addGold(-player.getGold()/2);
                 player.setPoints(0);
-                player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax()/4);
+               //player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax()/4);=========================================
+                player.getPlayerShip().setHullHealth(player.getPlayerShip().getHealthMax() / 4);
                 dialog("YOU HAVE DIED", BattleEvent.SCENE_RETURN);
                 break;
             case ENEMY_DIES:
@@ -418,22 +455,36 @@ public class CombatScreen extends BaseScreen {
 
     // This method updates the player HP bar and text values
     public void updateHP(){
-        enemyHP.setAnimateDuration(1);
-        playerHP.setAnimateDuration(1);
+        enemyHullHP.setAnimateDuration(1);
+        enemySailHP.setAnimateDuration(1);
+        playerHullHP.setAnimateDuration(1);
+        playerSailHP.setAnimateDuration(1);
 
-        if (enemy.getHealth() <= 0){
-            enemy.setHealth(0);
+        if (enemy.getHullHealth() <= 0) {
+            enemy.setHullHealth(0);
         }
 
-        if (player.getPlayerShip().getHealth() <= 0){
-            player.getPlayerShip().setHealth(0);
+        if (enemy.getSailHealth() <= 0) {
+            enemy.setSailHealth(0);
         }
 
-        enemyHPLabel.setText(enemy.getHealth()+"/"+enemy.getHealthMax());
-        enemyHP.setValue(enemy.getHealth());
+        if (player.getPlayerShip().getHullHealth() <= 0) {
+            player.getPlayerShip().setHullHealth(0);
+        }
 
-        playerHPLabel.setText(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax());
-        playerHP.setValue(player.getPlayerShip().getHealth());
+        if (player.getPlayerShip().getHullHealth() <= 0) {
+            player.getPlayerShip().setSailHealth(0);
+        }
+
+        enemyHullHPLabel.setText(enemy.getHullHealth() + "/" + enemy.getHealthMax() / 2);
+        enemyHullHP.setValue(enemy.getHullHealth());
+        enemySailHPLabel.setText(enemy.getSailHealth() + "/" + enemy.getHealthMax() / 2);
+        enemySailHP.setValue(enemy.getSailHealth());
+
+        playerHullHPLabel.setText(player.getPlayerShip().getHullHealth() + "/" + player.getPlayerShip().getHealthMax() / 2);
+        playerHullHP.setValue(player.getPlayerShip().getHullHealth());
+        playerSailHPLabel.setText(player.getPlayerShip().getSailHealth() + "/" + player.getPlayerShip().getHealthMax() / 2);
+        playerSailHP.setValue(player.getPlayerShip().getSailHealth());
     }
 
     // Updates and displays text box

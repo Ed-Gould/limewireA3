@@ -16,8 +16,8 @@ public class Ram extends Attack {
 		if (doesHit(attacker.getAccuracy(), this.accPercent)) {
 			int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
 			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
-			defender.damage(this.damage);
-			attacker.damage(this.damage/2);
+			defender.damage(name, this.damage);
+			attacker.damage(name,this.damage/2);
 			return this.damage;
 		}
 		return 0;
