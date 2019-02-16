@@ -21,8 +21,9 @@ public class Player {
         this.points = 0;
 
         attacks.add(Ram.attackRam);
-        attacks.add(GrapeShot.attackSwivel);
-        attacks.add(Attack.attackBoard);
+        attacks.add(Attack.attackSwivel);
+        //attacks.add(Attack.attackBoard);
+        attacks.add(DoubleShot.attackDouble);
     }
 
     public Player(Ship ship) {
