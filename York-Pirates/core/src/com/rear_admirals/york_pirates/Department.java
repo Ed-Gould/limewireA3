@@ -23,7 +23,7 @@ public class Department {
                 pirateGame.getPlayer().getPlayerShip().addDefence(1);
                 return true;
             } else if (product.equals("attack")) {
-                pirateGame.getPlayer().getPlayerShip().addAttack(1);
+                pirateGame.getPlayer().getPlayerShip().addAttack(0.1f);
                 return true;
             } else if (product.equals("accuracy")) {
                 pirateGame.getPlayer().getPlayerShip().addAccuracy(1);
@@ -37,7 +37,7 @@ public class Department {
         if (product.equals("defence")) {
             return (int) (baseUpgradeCost * pow(2, max(0, pirateGame.getPlayer().getPlayerShip().getDefence() - 3)));
         } else if (product.equals("attack")) {
-            return (int) (baseUpgradeCost * pow(2, max(0, pirateGame.getPlayer().getPlayerShip().getAttack() - 3)));
+            return (int) (baseUpgradeCost * 10 * (pirateGame.getPlayer().getPlayerShip().getAtkMultiplier() - 1.0f));
         } else if (product.equals("accuracy")) {
             return (int) (baseUpgradeCost * pow(2, max(0, pirateGame.getPlayer().getPlayerShip().getAccuracy() - 3)));
         }

@@ -5,15 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.rear_admirals.york_pirates.College;
-import com.rear_admirals.york_pirates.ShipType;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 import static com.rear_admirals.york_pirates.College.Derwent;
 
 public class Ship extends PhysicsActor {
 	private String name;
-    private int attack;
+    private float atkMultiplier;
 	private int defence;
 	private int accuracy;
 	private int health;
@@ -27,7 +25,7 @@ public class Ship extends PhysicsActor {
     @Deprecated
     public Ship(){
         this.name = "DEBUG SHIP";
-        this.attack = 5;
+        this.atkMultiplier = 1.0f;
         this.defence = 5;
         this.accuracy = 5;
         this.healthMax = defence*20;
@@ -37,7 +35,7 @@ public class Ship extends PhysicsActor {
 
     public Ship(ShipType type, College college) {
         this.name = college.getName() + " " + type.getName();
-        this.attack = type.getAttack();
+        this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
         this.healthMax = defence*20;
@@ -50,7 +48,7 @@ public class Ship extends PhysicsActor {
 
     public Ship(ShipType type, College college, String texturePath) {
         this.name = college.getName() + " " + type.getName();
-        this.attack = type.getAttack();
+        this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
         this.accuracy = type.getAccuracy();
         this.healthMax = defence*20;
@@ -66,8 +64,8 @@ public class Ship extends PhysicsActor {
 	    this.name = name;
     }
 
-    public Ship(int attack, int defence, int accuracy, ShipType type, College college, String name, boolean isBoss) {
-        this.attack = attack;
+    public Ship(float atkMultiplier, int defence, int accuracy, ShipType type, College college, String name, boolean isBoss) {
+        this.atkMultiplier = atkMultiplier;
         this.defence = defence;
         this.accuracy = accuracy;
         this.type = type;
@@ -135,16 +133,16 @@ public class Ship extends PhysicsActor {
 
     public void setName(String name) { this.name = name; }
 
-    public int getAttack() {
-        return attack;
+    public float getAtkMultiplier() {
+        return atkMultiplier;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public void setAtkMultiplier(float atkMultiplier) {
+        this.atkMultiplier = atkMultiplier;
     }
 
-    public void addAttack(int increase){
-        this.attack = attack + increase;
+    public void addAttack(float increase){
+        this.atkMultiplier = atkMultiplier + increase;
     }
 
     public int getDefence() {
