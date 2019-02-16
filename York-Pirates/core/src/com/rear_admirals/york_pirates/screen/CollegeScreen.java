@@ -12,6 +12,7 @@ import com.rear_admirals.york_pirates.College;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.Player;
 import com.rear_admirals.york_pirates.base.BaseScreen;
+import com.rear_admirals.york_pirates.screen.combat.attacks.Attack;
 
 public class CollegeScreen extends BaseScreen {
     private Player player;
@@ -92,6 +93,11 @@ public class CollegeScreen extends BaseScreen {
         shipTable.add(shipText).padBottom(0.05f * Gdx.graphics.getHeight());
         shipTable.row();
 
+        for (Attack attack: player.ownedAttacks){
+            shipTable.add(new TextButton(attack.getName(), main.getSkin())).padBottom(viewheight/40);;
+            shipTable.row();
+        }
+
         // Create buttons used to show minigame options
         /**TODO: Make a button and add it to the minigameTable, after the line "minigameTable.row()"
          * This will show up on the college menu
@@ -142,9 +148,6 @@ public class CollegeScreen extends BaseScreen {
                 }
             }
         });
-
-
-
 
         mainStage.addActor(healTable);
         mainStage.addActor(shipTable);
