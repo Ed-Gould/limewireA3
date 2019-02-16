@@ -15,7 +15,7 @@ public class GrapeShot extends Attack {
     public int doAttack(Ship attacker, Ship defender) {
         this.damage = 0;
         for (int i = 0; i < 4; i++) { // Fires 4 shots.
-            if (doesHit(attacker.getAccuracy(), this.accPercent)) {
+            if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
                 int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
                 this.damage += attacker.getAtkMultiplier() * randDmg;
                 System.out.println("GRAPE HIT");

@@ -13,7 +13,7 @@ public class Ship extends PhysicsActor {
 	private String name;
     private float atkMultiplier;
 	private int defence;
-	private int accuracy;
+	private float accMultiplier;
 	private int health;
     private ShipType type;
     private int healthMax;
@@ -27,7 +27,7 @@ public class Ship extends PhysicsActor {
         this.name = "DEBUG SHIP";
         this.atkMultiplier = 1.0f;
         this.defence = 5;
-        this.accuracy = 5;
+        this.accMultiplier = 1.0f;
         this.healthMax = defence*20;
         this.health = healthMax;
         this.college = Derwent;
@@ -37,7 +37,7 @@ public class Ship extends PhysicsActor {
         this.name = college.getName() + " " + type.getName();
         this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
-        this.accuracy = type.getAccuracy();
+        this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
         this.health = healthMax;
         this.college = college;
@@ -50,7 +50,7 @@ public class Ship extends PhysicsActor {
         this.name = college.getName() + " " + type.getName();
         this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
-        this.accuracy = type.getAccuracy();
+        this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
         this.health = healthMax;
         this.college = college;
@@ -64,10 +64,10 @@ public class Ship extends PhysicsActor {
 	    this.name = name;
     }
 
-    public Ship(float atkMultiplier, int defence, int accuracy, ShipType type, College college, String name, boolean isBoss) {
+    public Ship(float atkMultiplier, int defence, int accMultiplier, ShipType type, College college, String name, boolean isBoss) {
         this.atkMultiplier = atkMultiplier;
         this.defence = defence;
-        this.accuracy = accuracy;
+        this.accMultiplier = accMultiplier;
         this.type = type;
         this.name = name;
         this.healthMax = defence*20;
@@ -159,14 +159,14 @@ public class Ship extends PhysicsActor {
         this.healthMax = (defence) * 20;
     }
 
-    public int getAccuracy() { return accuracy; }
+    public float getAccMultiplier() { return accMultiplier; }
 
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
+    public void setAccMultiplier(float accMultiplier) {
+        this.accMultiplier = accMultiplier;
     }
 
-    public void addAccuracy(int increase){
-        this.accuracy = accuracy + increase;
+    public void addAccuracy(float increase){
+        this.accMultiplier = accMultiplier + increase;
     }
 
     public int getHealth() {
