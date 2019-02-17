@@ -216,7 +216,7 @@ public class CombatScreen extends BaseScreen {
         attackTable.add(button3).uniform().width(viewwidth/5).padRight(button_pad_right);
         attackTable.add(button4).uniform().width(viewwidth / 5);
 
-        rootTable.row().width(viewwidth*0.8f);
+        rootTable.row().width(viewwidth*0.9f);
         rootTable.add(screenTitle).colspan(2);
         rootTable.row();
         rootTable.add(shipName);
