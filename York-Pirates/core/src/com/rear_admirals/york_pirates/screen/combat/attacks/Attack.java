@@ -78,8 +78,8 @@ public class Attack {
 	}
 
 	// attacks to be used in the game are defined here.
-	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",10,16,false,60, 0);
-	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",8,14,false,75, 0);
-	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 30, 34,true,95, 0);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",8,12,false,60, 0);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",5,9,false,75, 0);
+	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 24, 28,true,95, 0);
 	public static Attack attackNone = new Attack("No attack","You haven't got any weapons in this slot, Equip an attack! ",0,0,false,0, 0);
 }

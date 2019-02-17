@@ -78,11 +78,11 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
-        sailsHealthTextLabel = new Label("Sails Health", main.getSkin(), "default_black");
+        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin(), "default_black");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_black");
         sailsHealthValueLabel.setAlignment(Align.left);
 
-        hullHealthTextLabel = new Label("Hull Health", main.getSkin(), "default_black");
+        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin(), "default_black");
         hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(),"default_black");
         hullHealthValueLabel.setAlignment(Align.left);
 

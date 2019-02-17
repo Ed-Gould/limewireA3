@@ -127,6 +127,7 @@ public class CombatScreen extends BaseScreen {
         //playerHP.getStyle().knobBefore.setMinHeight(playerHP.getPrefHeight());
 
         Label enemyName = new Label(enemy.getName(), pirateGame.getSkin(),"default_black");
+        System.out.println("\n" + enemy.getHealthMax()+"\n");
         enemySailsHP = new ProgressBar(0, enemy.getHealthMax(), 0.1f, false, pirateGame.getSkin());
         enemySailsHPLabel = new Label("Sails: " + enemy.getHullHealth() + "/" + enemy.getHealthMax(), pirateGame.getSkin());
         enemyHullHP = new ProgressBar(0, enemy.getHealthMax(), 0.1f, false, pirateGame.getSkin());
@@ -136,15 +137,15 @@ public class CombatScreen extends BaseScreen {
 
         playerSailsHP.setValue(player.getPlayerShip().getHealthMax());
         playerHullHP.setValue(player.getPlayerShip().getHealthMax());
-        enemySailsHP.setValue(player.getPlayerShip().getHealthMax());
-        enemyHullHP.setValue(player.getPlayerShip().getHealthMax());
+        enemySailsHP.setValue(enemy.getHealthMax());
+        enemyHullHP.setValue(enemy.getHealthMax());
         //playerHP.setValue(player.getPlayerShip().getHealthMax());
         //enemyHP.setValue(enemy.getHealthMax());
 
-        Table playerHullHPTable = new Table();
         Table playerSailsHPTable = new Table();
-        Table enemyHullHPTable = new Table();
+        Table playerHullHPTable = new Table();
         Table enemySailsHPTable = new Table();
+        Table enemyHullHPTable = new Table();
 
         playerSailsHPTable.add(playerSailsHPLabel).padRight(viewwidth/36f);
         playerSailsHPTable.add(playerSailsHP).width(viewwidth/5);

@@ -89,13 +89,13 @@ public class DepartmentScreen extends BaseScreen {
 
         healTable.add(healText).padBottom(viewheight/40);
         healTable.row();
-        healTable.add(healHullFullBtn).padBottom(viewheight/40);
-        healTable.row();
         healTable.add(healSailsFullBtn).padBottom(viewheight/40);
         healTable.row();
-        healTable.add(healHullTenBtn).padBottom(viewheight/40);
+        healTable.add(healHullFullBtn).padBottom(viewheight/40);
         healTable.row();
         healTable.add(healSailsTenBtn).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healHullTenBtn).padBottom(viewheight/40);
         healTable.row();
         healTable.add(healMessage);
         
@@ -130,14 +130,11 @@ public class DepartmentScreen extends BaseScreen {
         }
         shopTable.add(shopMessage);
 
-        if (sailsHealthFromMax == 0) { healMessage.setText("Your ship's sails are already fully repaired!"); }
-        if (hullHealthFromMax == 0) { healMessage.setText("Your ship's hull is already fully repaired!"); }
-
         healSailsFullBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (sailsHealthFromMax == 0){
-                    healMessage.setText("Your ship is already fully repaired!");
+                    healMessage.setText("Your sails are already fully repaired!");
                 }
                 else {
                     if (player.payGold(getSailsHealCost(sailsHealthFromMax))) {
@@ -155,7 +152,7 @@ public class DepartmentScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (hullHealthFromMax == 0){
-                    healMessage.setText("Your ship's hull is already fully repaired!");
+                    healMessage.setText("Your hull is already fully repaired!");
                 }
                 else {
                     if (player.payGold(getHullHealCost(hullHealthFromMax))) {
@@ -173,7 +170,7 @@ public class DepartmentScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (sailsHealthFromMax == 0){
-                    healMessage.setText("Your ship sails are already fully repaired!");
+                    healMessage.setText("Your sails are already fully repaired!");
                 }
                 else {
                     if (player.payGold(getSailsHealCost(10))) { // Pay cost to heal 10 health
@@ -191,7 +188,7 @@ public class DepartmentScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (hullHealthFromMax == 0){
-                    healMessage.setText("Your ship hull is already fully repaired!");
+                    healMessage.setText("Your hull is already fully repaired!");
                 }
                 else {
                     if (player.payGold(getHullHealCost(10))) { // Pay cost to heal 10 health
@@ -242,6 +239,8 @@ public class DepartmentScreen extends BaseScreen {
 
         goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
+        sailsHealthValueLabel.setText(Integer.toString(player.getPlayerShip().getSailsHealth()));
+        hullHealthValueLabel.setText(Integer.toString(player.getPlayerShip().getHullHealth()));
         sailsHealthFromMax = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getSailsHealth();
         hullHealthFromMax = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHullHealth();
 
