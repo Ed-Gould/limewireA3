@@ -80,6 +80,7 @@ public class DepartmentScreen extends BaseScreen {
         healTable.setFillParent(true);
 
         final Label healText = new Label("Heal", main.getSkin(), "title");
+
         final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHullHealCost(hullHealthFromMax)) +" gold", main.getSkin());
         final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getSailsHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
         final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
@@ -104,7 +105,7 @@ public class DepartmentScreen extends BaseScreen {
         upgradeTable.setFillParent(true);
 
         final Label upgradeText = new Label("Upgrade", main.getSkin(), "title");
-        final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getProduct() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
+        final TextButton upgradeButton = new TextButton("Upgrade ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold", main.getSkin());
 
         upgradeTable.add(upgradeText).padBottom(0.05f * Gdx.graphics.getHeight());
         upgradeTable.row();
@@ -116,11 +117,18 @@ public class DepartmentScreen extends BaseScreen {
         shopTable.setFillParent(true);
 
         final Label shopText = new Label("Shop", main.getSkin(), "title");
-        final TextButton shopButton = new TextButton("Buy item", main.getSkin());
+        final TextButton shopButton = new TextButton("Buy " + department.getWeaponToBuy().getName() + " for " + department.getWeaponToBuy().getCost() + " gold", main.getSkin());
+        final Label shopMessage = new Label("", main.getSkin());
 
         shopTable.add(shopText).padBottom(viewheight/40);
         shopTable.row();
-        shopTable.add(shopButton);
+
+        // Display button to buy weapon if the player doesn't own it
+        if (!player.ownedAttacks.contains(department.getWeaponToBuy())){
+            shopTable.add(shopButton).padBottom(viewheight/40);
+            shopTable.row();
+        }
+        shopTable.add(shopMessage);
 
         if (hullHealthFromMax == 0) { healMessage.setText("Your ship's hull is already fully repaired!"); }
         if (sailsHealthFromMax == 0) { healMessage.setText("Your ship's sails are already fully repaired!"); }
@@ -200,8 +208,21 @@ public class DepartmentScreen extends BaseScreen {
         upgradeButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                department.purchase();
-                upgradeButton.setText("Upgrade Ship "+ department.getProduct() + " for " + department.getUpgradeCost() + " gold");
+                department.buyUpgrade();
+                upgradeButton.setText("Upgrade Ship "+ department.getUpgrade() + " for " + department.getUpgradeCost() + " gold");
+            }
+        });
+
+        shopButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                if (!pirateGame.getPlayer().ownedAttacks.contains(department.getWeaponToBuy())) {
+                    if (department.buyWeapon()) {
+                        shopMessage.setText(department.getWeaponToBuy().getName() + " purchased!");
+                    } else {
+                        shopMessage.setText("Not enough money!");
+                    }
+                }
             }
         });
 

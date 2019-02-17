@@ -5,9 +5,8 @@ import com.rear_admirals.york_pirates.Ship;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DoubleShot extends Attack{
-
-    protected DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent){
-        super(name, desc, dmgMin, dmgMax, skipMove, accPercent);
+    protected DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
+        super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 
     // Double shot requires a custom doAttack function as it is a more complicated attack
@@ -27,5 +26,9 @@ public class DoubleShot extends Attack{
         return this.damage;
     }
 
-    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",3 ,4,false, 60);
+    public int getCost() {
+        return cost;
+    }
+
+    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",3 ,4,false, 60, 2);
 }
