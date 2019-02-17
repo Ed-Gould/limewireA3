@@ -96,6 +96,7 @@ public class SailingScreen extends BaseScreen {
 
         uiTable.add(sailsHealthTextLabel).fill();
         uiTable.add(sailsHealthValueLabel).fill();
+        uiTable.row();
         uiTable.add(hullHealthTextLabel).fill();
         uiTable.add(hullHealthValueLabel).fill();
         uiTable.row();
