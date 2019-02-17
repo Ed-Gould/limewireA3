@@ -15,7 +15,9 @@ public class Ram extends Attack {
 	@Override
 	public int doAttack(Ship attacker, Ship defender) {
 		if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
+			// Calculate base damage dealt by the attack with a random integer from the min to max damage potential
 			int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
+			// Multiply real damage by the attackers damage multiplier (Increased through attack upgrades)
 			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg * Math.max(attacker.getSailsHealth() / 100f, 0.25f));
 			defender.damage(name, this.damage);
 			attacker.damage(name,this.damage/2);

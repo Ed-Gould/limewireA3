@@ -15,7 +15,9 @@ public class DoubleShot extends Attack{
         this.damage = 0;
         for (int i = 0; i < 2; i++) { // Fires 2 shots.
             if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.4f), this.accPercent)) {
+                // Calculate base damage dealt by the attack with a random integer from the min to max damage potential
                 int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
+                // Multiply real damage by the attackers damage multiplier (Increased through attack upgrades)
                 this.damage += attacker.getAtkMultiplier() * randDmg;
                 System.out.println("DOUBLE SHOT HIT");
             } else {
