@@ -129,8 +129,8 @@ public class CombatScreen extends BaseScreen {
         enemyHullHP = new ProgressBar(0, enemy.getHealthMax(), 0.1f, false, pirateGame.getSkin());
         enemyHullHPLabel = new Label("Hull: " + enemy.getHullHealth() + "/" + enemy.getHealthMax(), pirateGame.getSkin());
 
-        playerSailsHP.setValue(player.getPlayerShip().getHealthMax());
-        playerHullHP.setValue(player.getPlayerShip().getHealthMax());
+        playerSailsHP.setValue(player.getPlayerShip().getSailsHealth());
+        playerHullHP.setValue(player.getPlayerShip().getHullHealth());
         enemySailsHP.setValue(enemy.getHealthMax());
         enemyHullHP.setValue(enemy.getHealthMax());
 
