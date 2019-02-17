@@ -169,6 +169,7 @@ public class CollegeScreen extends BaseScreen {
         healTenBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println(getHealCost(10));
                 if (healthFromMax == 0){
                     healMessage.setText("Your ship is already fully repaired!");
                 }
@@ -204,18 +205,19 @@ public class CollegeScreen extends BaseScreen {
             pirateGame.setScreen(pirateGame.getSailingScene());
             dispose();
         }
-
         healthFromMax = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHealth();
+
+        healthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHealth()));
         goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
     }
 
     public int getHealCost(int value){ // Function to get the cost to heal to full:
         // if statement ensures player pays at least 1 gold to heal
-        if (healthFromMax / 10 == 0){
+        if (value / 10 == 0){
             return 1;
         }
         // Formula for cost: Every 10 health costs 1 gold to heal
-        return healthFromMax / 10;
+        return value / 10;
     }
 }

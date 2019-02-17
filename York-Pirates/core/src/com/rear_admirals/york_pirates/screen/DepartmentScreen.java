@@ -187,20 +187,21 @@ public class DepartmentScreen extends BaseScreen {
             System.out.println("ESCAPE");
             pirateGame.setScreen(pirateGame.getSailingScene());
         }
+        healthFromMax = player.getPlayerShip().getHealthFromMax();
 
+        healthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHealth()));
         goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
-        healthFromMax = player.getPlayerShip().getHealthFromMax();
 
     }
 
     public int getHealCost(int value){ // Function to get the cost to heal to full:
         // if statement ensures player pays at least 1 gold to heal
-        if (healthFromMax / 10 == 0){
+        if (value / 10 == 0){
             return 1;
         }
         // Formula for cost: Every 10 health costs 1 gold to heal
-        return healthFromMax / 10;
+        return value / 10;
     }
 }
 
