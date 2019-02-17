@@ -44,11 +44,7 @@ public class Attack {
 	// New function used to check if an attack hits the enemy.
 	protected boolean doesHit(float shipMultiplier, int accPercent) {//================================ Modify to account for sail damage?
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
-		if (accPercent * shipMultiplier > random){
-			return true;
-		} else{
-			return false;
-		}
+		return accPercent * shipMultiplier > random;
 	}
 
 	// Function called to actually perform the attack.
