@@ -310,7 +310,9 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
-            pirateGame.getPlayer().addPoints(1);
+            if (x){
+                pirateGame.getPlayer().addPoints(1);
+            }
             timer -= 1;
         }
 
