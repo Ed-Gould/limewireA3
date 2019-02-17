@@ -15,12 +15,12 @@ public class ExplosiveShell extends Attack{
         int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
         this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
 
-        if (doesHit(attacker.getAccuracy(), this.accPercent)) {
-            defender.damage(this.damage);
+        if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
+            defender.damage(name, this.damage);
             return this.damage;
         }
         else{
-            attacker.damage(this.damage / 2);
+            attacker.damage(name, this.damage / 2);
         }
         return 0;
     }

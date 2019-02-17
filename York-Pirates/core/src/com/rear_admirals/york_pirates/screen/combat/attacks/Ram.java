@@ -13,7 +13,7 @@ public class Ram extends Attack {
 	// Ram requires a custom doAttack function and as such has its own class.
 	@Override
 	public int doAttack(Ship attacker, Ship defender) {
-		if (doesHit(attacker.getAccuracy(), this.accPercent)) {
+		if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
 			int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
 			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
 			defender.damage(name, this.damage);

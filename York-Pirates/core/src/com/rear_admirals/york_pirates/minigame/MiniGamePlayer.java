@@ -5,20 +5,21 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.rear_admirals.york_pirates.base.PhysicsActor;
 
 import java.util.ArrayList;
 
 public class MiniGamePlayer extends PhysicsActor {
+    //Player variables
     public Texture playerTexture;
     public int moveSpeed = 250;
+    //Movement variables
     public boolean moveLeft;
     public boolean moveRight;
     public boolean moveUp;
     public boolean moveDown;
 
+    //Setup new player.
     public MiniGamePlayer(){
         this.playerTexture = new Texture("miniGamePlayer.png");
         this.setSpeed(moveSpeed);
@@ -27,6 +28,7 @@ public class MiniGamePlayer extends PhysicsActor {
         this.moveUp = true;
         this.moveDown = true;
     }
+
     @Override
     public void draw(Batch batch, float alpha){
         batch.setColor(1,1,1,alpha);
@@ -35,6 +37,7 @@ public class MiniGamePlayer extends PhysicsActor {
 
     public Texture getPlayerTexture(){return this.playerTexture;}
 
+    //Player movement function.
     public void playerMove(float dt) {
         this.setAccelerationXY(0,0);
         if ((moveLeft)&&(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))) {
@@ -50,8 +53,8 @@ public class MiniGamePlayer extends PhysicsActor {
             this.moveBy(0,-(moveSpeed * dt));
         }
     }
-
-    public boolean isDead(ArrayList<MiniGameEnemy> enemies, MiniGamePlayer player,float elementSize){
+    //Check if the player has run to a ghost(enemy) i.e. player is dead.
+    public boolean isDead(ArrayList<MiniGameEnemy> enemies, MiniGamePlayer player){
         for(MiniGameEnemy enemy : enemies){
             int x = (int)((enemy.getX())/64);
             int y = (int)((enemy.getY())/64);
@@ -62,17 +65,17 @@ public class MiniGamePlayer extends PhysicsActor {
         }
         return false;
     }
-
-    public void resetMoveAble(){
+    //Reset player movement variables.
+    public void resetMovable(){
         this.moveUp = true;
         this.moveRight = true;
         this.moveLeft = true;
         this.moveDown = true;
     }
-    public boolean moveAble( MiniGamePlayer player, boolean[][] isWall, boolean[][] isExit){
+    //Check if player is movable in each direction. Return if the player has win the game.
+    public boolean movable( MiniGamePlayer player, boolean[][] isWall, boolean[][] isExit){
         int x = (int)((player.getX())/64);
         int y = (int)((player.getY())/64);
-        System.out.println(x+" "+y);
         if(isExit[x][y]){
             return true;
         }

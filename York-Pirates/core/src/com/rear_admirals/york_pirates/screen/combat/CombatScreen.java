@@ -115,7 +115,7 @@ public class CombatScreen extends BaseScreen {
         playerHullHP = new ProgressBar(0, player.getPlayerShip().getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
         playerHullHPLabel = new Label("Hull: " + player.getPlayerShip().getHullHealth() + "/" + player.getPlayerShip().getHealthMax() / 2, pirateGame.getSkin());
         playerSailHP = new ProgressBar(0, player.getPlayerShip().getHealthMax() / 2, 0.1f, false, pirateGame.getSkin());
-        playerSailHPLabel = new Label("Sail: " + player.getPlayerShip().getSailHealth() + "/" + player.getPlayerShip().getHealthMax() / 2, pirateGame.getSkin());
+        playerSailHPLabel = new Label("Sail: " + player.getPlayerShip().getSailsHealth() + "/" + player.getPlayerShip().getHealthMax() / 2, pirateGame.getSkin());
         //playerHP = new ProgressBar(0, player.getPlayerShip().getHealthMax(),0.1f,false,pirateGame.getSkin());
         //playerHPLabel = new Label(player.getPlayerShip().getHealth()+"/" + player.getPlayerShip().getHealthMax(), pirateGame.getSkin());
 
@@ -179,15 +179,23 @@ public class CombatScreen extends BaseScreen {
         this.queuedCombatEvent = BattleEvent.NONE;
         currentAttack = null;
 
+
         // Instantiation of the combat buttons. Attack and Flee are default attacks, the rest can be modified within player class.
+        while (player.equippedAttacks.size() < 3){
+            player.equippedAttacks.add(Attack.attackNone);
+        }
         final AttackButton button1 = new AttackButton(Attack.attackMain, pirateGame.getSkin());
         buttonListener(button1);
-        final AttackButton button2 = new AttackButton(player.attacks.get(0), pirateGame.getSkin());
+
+        final AttackButton button2 = new AttackButton(player.equippedAttacks.get(0), pirateGame.getSkin());
         buttonListener(button2);
-        final AttackButton button3 = new AttackButton(player.attacks.get(1), pirateGame.getSkin());
+
+        final AttackButton button3 = new AttackButton(player.equippedAttacks.get(1), pirateGame.getSkin());
         buttonListener(button3);
-        final AttackButton button4 = new AttackButton(player.attacks.get(2), pirateGame.getSkin());
+
+        final AttackButton button4 = new AttackButton(player.equippedAttacks.get(2), pirateGame.getSkin());
         buttonListener(button4);
+
         final AttackButton fleeButton = new AttackButton(Flee.attackFlee, pirateGame.getSkin(), "red");
         buttonListener(fleeButton);
 
@@ -205,7 +213,7 @@ public class CombatScreen extends BaseScreen {
         attackTable.add(button2).uniform().width(viewwidth/5);
         attackTable.row().padTop(button_pad_bottom);
         attackTable.add(button3).uniform().width(viewwidth/5).padRight(button_pad_right);
-        attackTable.add(button4).uniform().width(viewwidth/5);
+        attackTable.add(button4).uniform().width(viewwidth / 5);
 
         rootTable.row().width(viewwidth*0.8f);
         rootTable.add(screenTitle).colspan(2);
@@ -464,8 +472,8 @@ public class CombatScreen extends BaseScreen {
             enemy.setHullHealth(0);
         }
 
-        if (enemy.getSailHealth() <= 0) {
-            enemy.setSailHealth(0);
+        if (enemy.getSailsHealth() <= 0) {
+            enemy.setSailsHealth(0);
         }
 
         if (player.getPlayerShip().getHullHealth() <= 0) {
@@ -473,18 +481,18 @@ public class CombatScreen extends BaseScreen {
         }
 
         if (player.getPlayerShip().getHullHealth() <= 0) {
-            player.getPlayerShip().setSailHealth(0);
+            player.getPlayerShip().setSailsHealth(0);
         }
 
         enemyHullHPLabel.setText(enemy.getHullHealth() + "/" + enemy.getHealthMax() / 2);
         enemyHullHP.setValue(enemy.getHullHealth());
-        enemySailHPLabel.setText(enemy.getSailHealth() + "/" + enemy.getHealthMax() / 2);
-        enemySailHP.setValue(enemy.getSailHealth());
+        enemySailHPLabel.setText(enemy.getSailsHealth() + "/" + enemy.getHealthMax() / 2);
+        enemySailHP.setValue(enemy.getSailsHealth());
 
         playerHullHPLabel.setText(player.getPlayerShip().getHullHealth() + "/" + player.getPlayerShip().getHealthMax() / 2);
         playerHullHP.setValue(player.getPlayerShip().getHullHealth());
-        playerSailHPLabel.setText(player.getPlayerShip().getSailHealth() + "/" + player.getPlayerShip().getHealthMax() / 2);
-        playerSailHP.setValue(player.getPlayerShip().getSailHealth());
+        playerSailHPLabel.setText(player.getPlayerShip().getSailsHealth() + "/" + player.getPlayerShip().getHealthMax() / 2);
+        playerSailHP.setValue(player.getPlayerShip().getSailsHealth());
     }
 
     // Updates and displays text box

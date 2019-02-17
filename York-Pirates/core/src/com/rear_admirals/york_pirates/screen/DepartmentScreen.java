@@ -13,17 +13,19 @@ import com.rear_admirals.york_pirates.base.BaseScreen;
 
 public class DepartmentScreen extends BaseScreen {
     private Player player;
-    private Label healthTextLabel, healthValueLabel;
+    private Label sailsHealthTextLabel, sailsHealthValueLabel;
+    private Label hullHealthTextLabel, hullHealthValueLabel;
     private Label goldValueLabel, goldTextLabel;
     private Label pointsValueLabel, pointsTextLabel;
 
-    private int healthFromMax;
+    private int sailsHealthFromMax, hullHealthFromMax;
 
     public DepartmentScreen(final PirateGame main, final Department department){
         super(main);
         player = main.getPlayer();
         // Get the amount of health required to heal to maximum
-        this.healthFromMax = player.getPlayerShip().getHealthFromMax();
+        this.sailsHealthFromMax = player.getPlayerShip().getSailsHealthFromMax();
+        this.hullHealthFromMax = player.getPlayerShip().getHullHealthFromMax();
 
         Table uiTable = new Table();
 
@@ -32,10 +34,14 @@ public class DepartmentScreen extends BaseScreen {
         A "TextLabel": These labels are composed of a text element (either the world "Points" or "Gold")
         A "ValueLabel": These labels are the integer value associated to the Text Labels (e.g. 40 for gold)
         */
-        
-        healthTextLabel = new Label("Health: ", main.getSkin());
-        healthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHealth()), main.getSkin());
-        healthValueLabel.setAlignment(Align.left);
+
+        sailsHealthTextLabel = new Label("Sails Health: ", main.getSkin());
+        sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin());
+        sailsHealthValueLabel.setAlignment(Align.left);
+
+        hullHealthTextLabel = new Label("Hull Health: ", main.getSkin());
+        hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin());
+        hullHealthValueLabel.setAlignment(Align.left);
 
         goldTextLabel = new Label("Gold: ", main.getSkin());
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin());
@@ -46,8 +52,11 @@ public class DepartmentScreen extends BaseScreen {
         pointsValueLabel.setAlignment(Align.left);
 
 
-        uiTable.add(healthTextLabel).fill();
-        uiTable.add(healthValueLabel).fill();
+        uiTable.add(sailsHealthTextLabel).fill();
+        uiTable.add(sailsHealthValueLabel).fill();
+        uiTable.row();
+        uiTable.add(hullHealthTextLabel).fill();
+        uiTable.add(hullHealthValueLabel).fill();
         uiTable.row();
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldValueLabel).fill();
@@ -71,16 +80,21 @@ public class DepartmentScreen extends BaseScreen {
         healTable.setFillParent(true);
 
         final Label healText = new Label("Heal", main.getSkin(), "title");
-        final TextButton healFullBtn = new TextButton("Fully heal ship for "+ Integer.toString(getHealCost(healthFromMax)) +" gold", main.getSkin());
-        final TextButton healTenBtn = new TextButton("Heal 10 health for 1 gold", main.getSkin());
+        final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHullHealCost(hullHealthFromMax)) +" gold", main.getSkin());
+        final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getSailsHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
+        final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
+        final TextButton healSailsTenBtn = new TextButton("Heal 10 sail health for 1 gold", main.getSkin());
         final Label healMessage = new Label("status", main.getSkin());
-
 
         healTable.add(healText).padBottom(viewheight/40);
         healTable.row();
-        healTable.add(healFullBtn).padBottom(viewheight/40);
+        healTable.add(healHullFullBtn).padBottom(viewheight/40);
         healTable.row();
-        healTable.add(healTenBtn).padBottom(viewheight/40);
+        healTable.add(healSailsFullBtn).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healHullTenBtn).padBottom(viewheight/40);
+        healTable.row();
+        healTable.add(healSailsTenBtn).padBottom(viewheight/40);
         healTable.row();
         healTable.add(healMessage);
         
@@ -108,39 +122,76 @@ public class DepartmentScreen extends BaseScreen {
         shopTable.row();
         shopTable.add(shopButton);
 
-        if (healthFromMax == 0) { healMessage.setText("Your ship is fully repaired."); }
+        if (hullHealthFromMax == 0) { healMessage.setText("Your ship's hull is already fully repaired!"); }
+        if (sailsHealthFromMax == 0) { healMessage.setText("Your ship's sails are already fully repaired!"); }
 
-        healFullBtn.addListener(new ClickListener() {
+        healHullFullBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (healthFromMax == 0){
-                    healMessage.setText("Your ship is already fully repaired!");
+                if (hullHealthFromMax == 0){
+                    healMessage.setText("Your ship's hull is already fully repaired!");
                 }
                 else {
-                    if (player.payGold(getHealCost(healthFromMax))) {
-                        System.out.println("Charged to fully heal");
-                        player.getPlayerShip().setHealth(player.getPlayerShip().getHealthMax());
-                        healMessage.setText("Ship fully repaired");
+                    if (player.payGold(getHullHealCost(hullHealthFromMax))) {
+                        System.out.println("Charged to fully heal hull");
+                        player.getPlayerShip().setHullHealth(player.getPlayerShip().getHealthMax());
+                        healMessage.setText("Ship hull fully repaired");
                     } else {
-                        healMessage.setText("Not enough money to repair ship");
+                        healMessage.setText("Not enough money to repair ship hull");
                     }
                 }
             }
         });
 
-        healTenBtn.addListener(new ClickListener() {
+        healSailsFullBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (healthFromMax == 0){
+                if (sailsHealthFromMax == 0){
                     healMessage.setText("Your ship is already fully repaired!");
                 }
                 else {
-                    if (player.payGold(getHealCost(10))) { // Pay cost to heal 10 health
-                        System.out.println("Charged to heal 10hp");
-                        player.getPlayerShip().heal(10);
-                        healMessage.setText("10 health restored");
+                    if (player.payGold(getSailsHealCost(sailsHealthFromMax))) {
+                        System.out.println("Charged to fully heal sails");
+                        player.getPlayerShip().setSailsHealth(player.getPlayerShip().getHealthMax());
+                        healMessage.setText("Ship sails fully repaired");
                     } else {
-                        healMessage.setText("Not enough money to repair ship");
+                        healMessage.setText("Not enough money to repair ship sails");
+                    }
+                }
+            }
+        });
+
+        healHullTenBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (hullHealthFromMax == 0){
+                    healMessage.setText("Your ship hull is already fully repaired!");
+                }
+                else {
+                    if (player.payGold(getHullHealCost(10))) { // Pay cost to heal 10 health
+                        System.out.println("Charged to heal hull by 10hp");
+                        player.getPlayerShip().healHull(10);
+                        healMessage.setText("10 health restored to hull");
+                    } else {
+                        healMessage.setText("Not enough money to repair ship hull");
+                    }
+                }
+            }
+        });
+
+        healSailsTenBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (sailsHealthFromMax == 0){
+                    healMessage.setText("Your ship sails are already fully repaired!");
+                }
+                else {
+                    if (player.payGold(getSailsHealCost(10))) { // Pay cost to heal 10 health
+                        System.out.println("Charged to heal sails by 10hp");
+                        player.getPlayerShip().healSails(10);
+                        healMessage.setText("10 health restored to sails");
+                    } else {
+                        healMessage.setText("Not enough money to repair ship sails");
                     }
                 }
             }
@@ -170,17 +221,27 @@ public class DepartmentScreen extends BaseScreen {
 
         goldValueLabel.setText(Integer.toString(pirateGame.getPlayer().getGold()));
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
-        healthFromMax = player.getPlayerShip().getHealthFromMax();
+        hullHealthFromMax = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getHullHealth();
+        sailsHealthFromMax = player.getPlayerShip().getHealthMax() - player.getPlayerShip().getSailsHealth();
 
     }
 
-    public int getHealCost(int value){ // Function to get the cost to heal to full:
+    public int getHullHealCost(int value){ // Function to get the cost to heal hull to full:
         // if statement ensures player pays at least 1 gold to heal
-        if (healthFromMax / 10 == 0){
+        if (hullHealthFromMax / 10 == 0){
             return 1;
         }
         // Formula for cost: Every 10 health costs 1 gold to heal
-        return healthFromMax / 10;
+        return hullHealthFromMax / 10;
+    }
+
+    public int getSailsHealCost(int value){ // Function to get the cost to heal sails to full:
+        // if statement ensures player pays at least 1 gold to heal
+        if (sailsHealthFromMax / 10 == 0){
+            return 1;
+        }
+        // Formula for cost: Every 10 health costs 1 gold to heal
+        return sailsHealthFromMax / 10;
     }
 }
 

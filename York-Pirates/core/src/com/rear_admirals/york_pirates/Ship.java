@@ -15,10 +15,10 @@ public class Ship extends PhysicsActor {
 	private String name;
     private float atkMultiplier;
 	private int defence;
-	private int accuracy;
-	private int hullHealth;
-	private int sailHealth;
-	private double damageRatio;
+	private float accMultiplier;
+    private int hullHealth;
+    private int sailsHealth;
+    private double damageRatio;
     private ShipType type;
     private int healthMax;
     private Texture sailingTexture;
@@ -31,10 +31,10 @@ public class Ship extends PhysicsActor {
         this.name = "DEBUG SHIP";
         this.atkMultiplier = 1.0f;
         this.defence = 5;
-        this.accuracy = 5;
+        this.accMultiplier = 1.0f;
         this.healthMax = defence*20;
         this.hullHealth = healthMax / 2;
-        this.sailHealth = healthMax / 2;
+        this.sailsHealth = healthMax / 2;
         this.college = Derwent;
     }
 
@@ -42,10 +42,10 @@ public class Ship extends PhysicsActor {
         this.name = college.getName() + " " + type.getName();
         this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
-        this.accuracy = type.getAccuracy();
+        this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
         this.hullHealth = healthMax / 2;
-        this.sailHealth = healthMax / 2;
+        this.sailsHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
@@ -56,10 +56,10 @@ public class Ship extends PhysicsActor {
         this.name = college.getName() + " " + type.getName();
         this.atkMultiplier = type.getAttack();
         this.defence = type.getDefence();
-        this.accuracy = type.getAccuracy();
+        this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
         this.hullHealth = healthMax / 2;
-        this.sailHealth = healthMax / 2;
+        this.sailsHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
@@ -71,16 +71,16 @@ public class Ship extends PhysicsActor {
 	    this.name = name;
     }
 
-    public Ship(float atkMultiplier, int defence, int accuracy, ShipType type, College college, String name, boolean isBoss) {
+    public Ship(float atkMultiplier, int defence, int accMultiplier, ShipType type, College college, String name, boolean isBoss) {
         this.atkMultiplier = atkMultiplier;
         this.defence = defence;
-        this.accuracy = accuracy;
+        this.accMultiplier = accMultiplier;
         this.type = type;
         this.name = name;
         this.healthMax = defence*20;
         this.college = college;
         this.hullHealth = healthMax / 2;
-        this.sailHealth = healthMax / 2;
+        this.sailsHealth = healthMax / 2;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         this.isBoss = isBoss;
         setupShip();
@@ -116,10 +116,10 @@ public class Ship extends PhysicsActor {
     public void damage(String attack, int value) {
         if (attack.equals("Broadside")) {
             damageRatio = ThreadLocalRandom.current().nextInt(1, 25);
-            sailHealth -= value * (damageRatio / 100);
+            sailsHealth -= value * (damageRatio / 100);
             hullHealth -= value * ((100 - damageRatio) / 100);
         } else if (attack.equals("Grape Shot")) {
-            sailHealth -= value;
+            sailsHealth -= value;
         } else if (attack.equals("Ram") || (attack.equals("Board"))) {
             hullHealth -= value;
         }
@@ -175,14 +175,14 @@ public class Ship extends PhysicsActor {
         this.healthMax = (defence) * 20;
     }
 
-    public int getAccuracy() { return accuracy; }
+    public float getAccMultiplier() { return accMultiplier; }
 
-    public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
+    public void setAccMultiplier(float accMultiplier) {
+        this.accMultiplier = accMultiplier;
     }
 
-    public void addAccuracy(int increase){
-        this.accuracy = accuracy + increase;
+    public void addAccuracy(float increase){
+        this.accMultiplier = accMultiplier + increase;
     }
 
     public int getHullHealth() {
@@ -193,9 +193,9 @@ public class Ship extends PhysicsActor {
         this.hullHealth = hullHealth;
     }
 
-    public int getSailHealth() { return sailHealth; }
+    public int getSailsHealth() { return sailsHealth; }
 
-    public void setSailHealth(int sailHealth) { this.sailHealth = sailHealth; }
+    public void setSailsHealth(int sailsHealth) { this.sailsHealth = sailsHealth; }
 
     public void healHull(int value) {
         if (this.hullHealth + value > healthMax / 2) {
@@ -205,11 +205,11 @@ public class Ship extends PhysicsActor {
         }
     }
 
-    public void healSail(int value) {
-        if (this.sailHealth + value > healthMax / 2) {
-            this.sailHealth = healthMax / 2;
+    public void healSails(int value) {
+        if (this.sailsHealth + value > healthMax / 2) {
+            this.sailsHealth = healthMax / 2;
         } else {
-            this.sailHealth += value;
+            this.sailsHealth += value;
         }
     }
 
@@ -217,8 +217,8 @@ public class Ship extends PhysicsActor {
         return this.healthMax - this.hullHealth;
     }
 
-    public int getSailHealthFromMax() {
-        return this.healthMax - this.sailHealth;
+    public int getSailsHealthFromMax() {
+        return this.healthMax - this.sailsHealth;
     }
 
     public String getType() {
