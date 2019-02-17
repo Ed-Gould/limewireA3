@@ -2,23 +2,27 @@ package com.rear_admirals.york_pirates.screen.combat.attacks;
 
 import com.rear_admirals.york_pirates.Ship;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Ram extends Attack {
 
-	protected Ram(String name, String desc, int dmgMultiplier, double accMultiplier, boolean skipMove, int accPercent) {
-		super(name, desc, dmgMultiplier, accMultiplier, skipMove, accPercent);
+	protected Ram(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+		super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
 	}
 
 	// Ram requires a custom doAttack function and as such has its own class.
+	// Ram damage depends on sails health
 	@Override
 	public int doAttack(Ship attacker, Ship defender) {
-		if ( doesHit(attacker.getAccuracy(), this.accPercent) ) {
-			this.damage = attacker.getAttack()*this.dmgMultiplier;
-			defender.damage(this.damage);
-			attacker.damage(this.damage/2);
+		if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
+			int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
+			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg * Math.max(attacker.getSailsHealth() / 100f, 0.25f));
+			defender.damage(name, this.damage);
+			attacker.damage(name,this.damage/2);
 			return this.damage;
 		}
 		return 0;
 	}
 
-	public static Attack attackRam = new Ram("Ram","Ram your ship into your enemy, causing damage to both of you.", 4, 1, false, 85);
+	public static Attack attackRam = new Ram("Ram","Ram the enemy ship, causes half damage to your own ship. ", 24,32, false, 75, 0);
 }

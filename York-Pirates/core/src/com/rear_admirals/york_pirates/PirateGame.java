@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.rear_admirals.york_pirates.screen.MainMenu;
 import com.rear_admirals.york_pirates.screen.SailingScreen;
+import com.rear_admirals.york_pirates.screen.combat.attacks.DoubleShot;
+import com.rear_admirals.york_pirates.screen.combat.attacks.ExplosiveShell;
+import com.rear_admirals.york_pirates.screen.combat.attacks.GrapeShot;
 
 public class PirateGame extends Game {
     private SpriteBatch batch;
@@ -26,9 +29,9 @@ public class PirateGame extends Game {
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
         player = new Player();
-		Chemistry = new Department("Chemistry", "Attack", this);
-		Physics = new Department("Physics", "Defence", this);
-		Economics = new Department("Economics", "Attack", this);
+		Chemistry = new Department("Chemistry", "attack", ExplosiveShell.attackExplosive, this);
+		Physics = new Department("Physics", "defence", DoubleShot.attackDouble, this);
+		Economics = new Department("Economics", "accuracy", GrapeShot.attackGrape, this);
 		this.sailingScene = new SailingScreen(this);
         setScreen(new MainMenu(this));
 	}

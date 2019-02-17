@@ -4,29 +4,31 @@ import com.rear_admirals.york_pirates.Ship;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GrapeShot extends Attack {
-
-    public GrapeShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
+public class DoubleShot extends Attack{
+    protected DoubleShot(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost){
         super(name, desc, dmgMin, dmgMax, skipMove, accPercent, cost);
     }
 
-    // Grapeshot requires a custom doAttack function and as such has its own class.
+    // Double shot requires a custom doAttack function as it is a more complicated attack
     @Override
-    public int doAttack(Ship attacker, Ship defender) {
+    public int doAttack(Ship attacker, Ship defender){
         this.damage = 0;
-        for (int i = 0; i < 4; i++) { // Fires 4 shots.
+        for (int i = 0; i < 2; i++) { // Fires 2 shots.
             if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.4f), this.accPercent)) {
                 int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
                 this.damage += attacker.getAtkMultiplier() * randDmg;
-                System.out.println("GRAPE HIT");
+                System.out.println("DOUBLE SHOT HIT");
             } else {
-                System.out.println("GRAPE MISSED");
+                System.out.println("DOUBLE SHOT MISSED");
             }
         }
         defender.damage(name, this.damage);
         return this.damage;
     }
 
-    public static Attack attackGrape = new GrapeShot("Grape Shot","Fire four very weak cannonballs. ",3 ,6,false, 85, 4);
-}
+    public int getCost() {
+        return cost;
+    }
 
+    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",4,6,false, 80, 2);
+}

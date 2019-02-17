@@ -8,59 +8,53 @@ public class Attack {
 	protected String name;
 	protected String desc;
 	protected int damage;
-	protected int dmgMultiplier;
-	protected double accMultiplier;
+	protected int dmgMin, dmgMax; // Minimum and maximum damage attacks can do (randomly in this range)
+	protected int accPercent;
+	protected int cost;
 	protected boolean skipMoveStatus;
 	protected boolean skipMove;
-	protected int accPercent;
 
 	// Generic constructor. Creates simple broadside attack.
 	protected Attack() {
 		this.name = "Broadside";
 		this.desc = "Fire a broadside at your enemy.";
-		this.dmgMultiplier = 3;
-		this.accMultiplier = 1;
+		this.dmgMin = 8;
+		this.dmgMax = 12;
+		this.accPercent = 80;
 		this.skipMove = false;
 		this.skipMoveStatus = skipMove;
+		this.cost = 0;
+
 	}
 
 	// Custom constructor. Can be used to create any attack which applies a multiple of the attacker's damage
 	// to the defender. Can also take a turn to charge and have custom accuracy.
-	protected Attack(String name, String desc, int dmgMultiplier, double accMultiplier, boolean skipMove, int accPercent) {
+	protected Attack(String name, String desc, int dmgMin, int dmgMax, boolean skipMove, int accPercent, int cost) {
 		this.name = name;
-		this.desc = desc;
-		this.dmgMultiplier = dmgMultiplier;
-		this.accMultiplier = accMultiplier;
+		this.desc = desc + "Base damage from " + dmgMin + " to " + dmgMax + ". Base accuracy of " + accPercent;
+		this.dmgMin = dmgMin;
+		this.dmgMax = dmgMax;
 		this.skipMove = skipMove;
 		this.skipMoveStatus = skipMove;
 		this.accPercent = accPercent;
+		this.cost = cost;
 	}
 
-	// Old function used to check if an attack hits the enemy.
-	@Deprecated
-	protected boolean doesHit( int accuracy, int mult, int bound) {
-		if ( accuracy * mult > Math.random() * bound) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 	// New function used to check if an attack hits the enemy.
-	protected boolean doesHit(int shipAcc, int accPercent) {
+
+	protected boolean doesHit(float shipMultiplier, int accPercent) {//================================ Modify to account for sail damage?
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
-		if (accPercent * (1+(shipAcc-3)*0.02) > random) {
-			return true;
-		} else {
-			return false;
-		}
+		return accPercent * shipMultiplier > random
 	}
 
 	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
-		if (doesHit(attacker.getAccuracy(), this.accPercent) ) {
-			this.damage = attacker.getAttack() * this.dmgMultiplier;
-			defender.damage(this.damage);
+		if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.4f), this.accPercent)) {
+		    int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
+			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
+			defender.damage(name, this.damage);
+
 			return this.damage;
 		}
 		return 0;
@@ -68,6 +62,9 @@ public class Attack {
 
 	public String getName() { return this.name;	}
 	public String getDesc() { return this.desc; }
+	public int getCost() {
+		return this.cost;
+	}
 	public boolean isSkipMove() {
 		return this.skipMove;
 	}
@@ -79,7 +76,8 @@ public class Attack {
 	}
 
 	// attacks to be used in the game are defined here.
-	public static Attack attackMain = new Attack("Broadside","Normal cannons. Fire a broadside at your enemy.",3,2,false,60);
-	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. High accuracy, low damage attack.",2,3,false,75);
-	public static Attack attackBoard = new Attack("Board","Board enemy ship. Charges attack over a turn, medium - high damage and very high accuracy", 4,2,true,90);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",8,12,false,80, 0);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",5,9,false,90, 0);
+	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 24, 28,true,95, 0);
+	public static Attack attackNone = new Attack("No attack","You haven't got any weapons in this slot, Equip an attack! ",0,0,false,0, 0);
 }
