@@ -45,7 +45,7 @@ public class Attack {
 
 	protected boolean doesHit(float shipMultiplier, int accPercent) {//================================ Modify to account for sail damage?
 		int random = ThreadLocalRandom.current().nextInt(0, 101);
-		return accPercent * shipMultiplier > random
+		return accPercent * shipMultiplier > random;
 	}
 
 	// Function called to actually perform the attack.
