@@ -18,9 +18,9 @@ public class Attack {
 	protected Attack() {
 		this.name = "Broadside";
 		this.desc = "Fire a broadside at your enemy.";
-		this.dmgMin = 10;
-		this.dmgMax = 16;
-		this.accPercent = 60;
+		this.dmgMin = 8;
+		this.dmgMax = 12;
+		this.accPercent = 80;
 		this.skipMove = false;
 		this.skipMoveStatus = skipMove;
 		this.cost = 0;
@@ -53,7 +53,7 @@ public class Attack {
 
 	// Function called to actually perform the attack.
 	public int doAttack(Ship attacker, Ship defender) {
-		if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.25f), this.accPercent)) {
+		if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.4f), this.accPercent)) {
 		    int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
 			this.damage = Math.round(attacker.getAtkMultiplier() * randDmg);
 			defender.damage(name, this.damage);
@@ -78,8 +78,8 @@ public class Attack {
 	}
 
 	// attacks to be used in the game are defined here.
-	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",8,12,false,60, 0);
-	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",5,9,false,75, 0);
+	public static Attack attackMain = new Attack("Broadside","Normal cannons. ",8,12,false,80, 0);
+	public static Attack attackSwivel = new Attack("Swivel","Lightweight cannons. ",5,9,false,90, 0);
 	public static Attack attackBoard = new Attack("Board","Board enemy ship, charging an attack over a turn. ", 24, 28,true,95, 0);
 	public static Attack attackNone = new Attack("No attack","You haven't got any weapons in this slot, Equip an attack! ",0,0,false,0, 0);
 }

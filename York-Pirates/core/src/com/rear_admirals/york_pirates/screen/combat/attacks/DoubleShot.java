@@ -14,7 +14,7 @@ public class DoubleShot extends Attack{
     public int doAttack(Ship attacker, Ship defender){
         this.damage = 0;
         for (int i = 0; i < 2; i++) { // Fires 2 shots.
-            if (doesHit(attacker.getAccMultiplier(), this.accPercent)) {
+            if (doesHit(attacker.getAccMultiplier() * Math.max(attacker.getSailsHealth() / 100f, 0.4f), this.accPercent)) {
                 int randDmg = ThreadLocalRandom.current().nextInt(this.dmgMin, this.dmgMax + 1);
                 this.damage += attacker.getAtkMultiplier() * randDmg;
                 System.out.println("DOUBLE SHOT HIT");
@@ -30,5 +30,5 @@ public class DoubleShot extends Attack{
         return cost;
     }
 
-    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",4,6,false, 60, 2);
+    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",4,6,false, 80, 2);
 }
