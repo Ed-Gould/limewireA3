@@ -12,13 +12,14 @@ public class Player {
     private Ship playerShip;
     private int gold;
     private int points;
-    public List<Attack> equippedAttacks = new ArrayList<Attack>();
-    public List<Attack> ownedAttacks = new ArrayList<Attack>();
+    public List<Attack> equippedAttacks = new ArrayList<Attack>(); // List of weapons the player is currently using
+    public List<Attack> ownedAttacks = new ArrayList<Attack>(); // List of all weapons the player owns
     public Player() {
 	    this.playerShip = new Ship(Brig, "Your Ship", Derwent);
         this.gold = 0;
         this.points = 0;
 
+        // Add the attacks the player starts with to the equipped and owned attacks lists
         ownedAttacks.add(Ram.attackRam);
         ownedAttacks.add(Attack.attackSwivel);
         ownedAttacks.add(Attack.attackBoard);

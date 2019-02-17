@@ -310,6 +310,7 @@ public class SailingScreen extends BaseScreen {
 
         timer += delta;
         if (timer > 1) {
+            // Only give the player points when not sailing in neutral territory.
             if (x){
                 pirateGame.getPlayer().addPoints(1);
             }
