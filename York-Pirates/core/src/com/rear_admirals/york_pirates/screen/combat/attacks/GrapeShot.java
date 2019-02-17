@@ -27,6 +27,6 @@ public class GrapeShot extends Attack {
         return this.damage;
     }
 
-    public static Attack attackGrape = new GrapeShot("Grape Shot","Fire four very weak cannonballs. ",3 ,6,false, 85, 4);
+    public static Attack attackGrape = new GrapeShot("Grape Shot","Fire four very weak cannonballs. ",3 ,5,false, 85, 60);
 }
 

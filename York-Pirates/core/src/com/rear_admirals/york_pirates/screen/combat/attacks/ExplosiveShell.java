@@ -29,5 +29,5 @@ public class ExplosiveShell extends Attack{
         return cost;
     }
 
-    public static Attack attackExplosive = new ExplosiveShell("Explosive Shell","Dangerous cannonball. Has a chance to explode on own ship, causing half damage. ", 16,24, false, 85, 1);
+    public static Attack attackExplosive = new ExplosiveShell("Explosive Shell","Dangerous cannonball. Has a chance to explode on own ship, causing half damage. ", 16,24, false, 85, 70);
 }

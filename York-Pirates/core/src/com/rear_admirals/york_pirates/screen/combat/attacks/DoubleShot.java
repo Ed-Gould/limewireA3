@@ -30,5 +30,5 @@ public class DoubleShot extends Attack{
         return cost;
     }
 
-    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",4,6,false, 80, 2);
+    public static Attack attackDouble = new DoubleShot("Double Shot","Fires two weaker cannonballs. ",4,6,false, 80, 50);
 }
