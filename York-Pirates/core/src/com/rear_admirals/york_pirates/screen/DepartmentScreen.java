@@ -83,7 +83,7 @@ public class DepartmentScreen extends BaseScreen {
         final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHullHealCost(hullHealthFromMax)) +" gold", main.getSkin());
         final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getSailsHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
         final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
-        final TextButton healSailsTenBtn = new TextButton("Heal 10 sail health for 1 gold", main.getSkin());
+        final TextButton healSailsTenBtn = new TextButton("Heal 10 sails health for 1 gold", main.getSkin());
         final Label healMessage = new Label("status", main.getSkin());
 
         healTable.add(healText).padBottom(viewheight/40);
