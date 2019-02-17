@@ -33,8 +33,8 @@ public class Ship extends PhysicsActor {
         this.defence = 5;
         this.accMultiplier = 1.0f;
         this.healthMax = defence*20;
-        this.sailsHealth = healthMax / 2;
-        this.hullHealth = healthMax / 2;
+        this.sailsHealth = healthMax;
+        this.hullHealth = healthMax;
         this.college = Derwent;
     }
 
@@ -44,8 +44,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
-        this.sailsHealth = healthMax / 2;
-        this.hullHealth = healthMax / 2;
+        this.sailsHealth = healthMax;
+        this.hullHealth = healthMax;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
@@ -58,8 +58,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
-        this.sailsHealth = healthMax / 2;
-        this.hullHealth = healthMax / 2;
+        this.sailsHealth = healthMax;
+        this.hullHealth = healthMax;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
@@ -79,8 +79,8 @@ public class Ship extends PhysicsActor {
         this.name = name;
         this.healthMax = defence*20;
         this.college = college;
-        this.sailsHealth = healthMax / 2;
-        this.hullHealth = healthMax / 2;
+        this.sailsHealth = healthMax;
+        this.hullHealth = healthMax;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         this.isBoss = isBoss;
         setupShip();
@@ -114,13 +114,13 @@ public class Ship extends PhysicsActor {
     }
 
     public void damage(String attack, int value) {
-        if (attack.equals("Broadside")) {
+        if (attack.equals("Broadside") || attack.equals("Double Shot") || attack.equals("Explosive Shell")) {
             damageRatio = ThreadLocalRandom.current().nextInt(1, 25);
             sailsHealth -= value * (damageRatio / 100);
             hullHealth -= value * ((100 - damageRatio) / 100);
         } else if (attack.equals("Grape Shot")) {
             sailsHealth -= value;
-        } else if (attack.equals("Ram") || (attack.equals("Board"))) {
+        } else if (attack.equals("Ram") || attack.equals("Board") || attack.equals("Swivel")) {
             hullHealth -= value;
         }
     }
@@ -198,16 +198,16 @@ public class Ship extends PhysicsActor {
     }
 
     public void healSails(int value) {
-        if (this.sailsHealth + value > healthMax / 2) {
-            this.sailsHealth = healthMax / 2;
+        if (this.sailsHealth + value > healthMax) {
+            this.sailsHealth = healthMax;
         } else {
             this.sailsHealth += value;
         }
     }
 
     public void healHull(int value) {
-        if (this.hullHealth + value > healthMax / 2) {
-            this.hullHealth = healthMax / 2;
+        if (this.hullHealth + value > healthMax) {
+            this.hullHealth = healthMax;
         } else {
             this.hullHealth += value;
         }

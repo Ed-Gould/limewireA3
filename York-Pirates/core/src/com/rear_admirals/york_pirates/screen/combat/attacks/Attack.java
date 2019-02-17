@@ -18,8 +18,8 @@ public class Attack {
 	protected Attack() {
 		this.name = "Broadside";
 		this.desc = "Fire a broadside at your enemy.";
-		this.dmgMin = 5;
-		this.dmgMax = 8;
+		this.dmgMin = 10;
+		this.dmgMax = 16;
 		this.accPercent = 60;
 		this.skipMove = false;
 		this.skipMoveStatus = skipMove;
