@@ -16,8 +16,8 @@ public class Ship extends PhysicsActor {
     private float atkMultiplier;
 	private int defence;
 	private float accMultiplier;
-    private int hullHealth;
     private int sailsHealth;
+    private int hullHealth;
     private double damageRatio;
     private ShipType type;
     private int healthMax;
@@ -33,8 +33,8 @@ public class Ship extends PhysicsActor {
         this.defence = 5;
         this.accMultiplier = 1.0f;
         this.healthMax = defence*20;
-        this.hullHealth = healthMax / 2;
         this.sailsHealth = healthMax / 2;
+        this.hullHealth = healthMax / 2;
         this.college = Derwent;
     }
 
@@ -44,8 +44,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
-        this.hullHealth = healthMax / 2;
         this.sailsHealth = healthMax / 2;
+        this.hullHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
@@ -58,8 +58,8 @@ public class Ship extends PhysicsActor {
         this.defence = type.getDefence();
         this.accMultiplier = type.getAccMultiplier();
         this.healthMax = defence*20;
-        this.hullHealth = healthMax / 2;
         this.sailsHealth = healthMax / 2;
+        this.hullHealth = healthMax / 2;
         this.college = college;
         this.type = type;
         this.sailingTexture = new Texture(Gdx.files.internal(texturePath));
@@ -79,8 +79,8 @@ public class Ship extends PhysicsActor {
         this.name = name;
         this.healthMax = defence*20;
         this.college = college;
-        this.hullHealth = healthMax / 2;
         this.sailsHealth = healthMax / 2;
+        this.hullHealth = healthMax / 2;
         this.sailingTexture = new Texture(Gdx.files.internal("ship (1).png"));
         this.isBoss = isBoss;
         setupShip();
@@ -185,24 +185,16 @@ public class Ship extends PhysicsActor {
         this.accMultiplier = accMultiplier + increase;
     }
 
+    public int getSailsHealth() { return sailsHealth; }
+
+    public void setSailsHealth(int sailsHealth) { this.sailsHealth = sailsHealth; }
+
     public int getHullHealth() {
         return hullHealth;
     }
 
     public void setHullHealth(int hullHealth) {
         this.hullHealth = hullHealth;
-    }
-
-    public int getSailsHealth() { return sailsHealth; }
-
-    public void setSailsHealth(int sailsHealth) { this.sailsHealth = sailsHealth; }
-
-    public void healHull(int value) {
-        if (this.hullHealth + value > healthMax / 2) {
-            this.hullHealth = healthMax / 2;
-        } else {
-            this.hullHealth += value;
-        }
     }
 
     public void healSails(int value) {
@@ -213,12 +205,20 @@ public class Ship extends PhysicsActor {
         }
     }
 
-    public int getHullHealthFromMax() {
-        return this.healthMax - this.hullHealth;
+    public void healHull(int value) {
+        if (this.hullHealth + value > healthMax / 2) {
+            this.hullHealth = healthMax / 2;
+        } else {
+            this.hullHealth += value;
+        }
     }
 
     public int getSailsHealthFromMax() {
         return this.healthMax - this.sailsHealth;
+    }
+
+    public int getHullHealthFromMax() {
+        return this.healthMax - this.hullHealth;
     }
 
     public String getType() {

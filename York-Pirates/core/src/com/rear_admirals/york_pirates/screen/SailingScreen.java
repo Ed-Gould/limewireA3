@@ -57,8 +57,8 @@ public class SailingScreen extends BaseScreen {
     private int[] backgroundLayers = {0,1,2};
     private int[] foregroundLayers = {3};
 
-    private Label hullHealthValueLabel, hullHealthTextLabel;
     private Label sailsHealthValueLabel, sailsHealthTextLabel;
+    private Label hullHealthValueLabel, hullHealthTextLabel;
     private Label goldValueLabel, goldTextLabel;
     private Label pointsValueLabel, pointsTextLabel;
 
@@ -78,13 +78,13 @@ public class SailingScreen extends BaseScreen {
 
         Table uiTable = new Table();
 
-        hullHealthTextLabel = new Label("Hull Health", main.getSkin(), "default_black");
-        hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(),"default_black");
-        hullHealthValueLabel.setAlignment(Align.left);
-
         sailsHealthTextLabel = new Label("Sails Health", main.getSkin(), "default_black");
         sailsHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getSailsHealth()), main.getSkin(), "default_black");
         sailsHealthValueLabel.setAlignment(Align.left);
+
+        hullHealthTextLabel = new Label("Hull Health", main.getSkin(), "default_black");
+        hullHealthValueLabel = new Label(Integer.toString(main.getPlayer().getPlayerShip().getHullHealth()), main.getSkin(),"default_black");
+        hullHealthValueLabel.setAlignment(Align.left);
 
         pointsTextLabel = new Label("Points: ", main.getSkin(),"default_black");
         pointsValueLabel = new Label(Integer.toString(main.getPlayer().getPoints()), main.getSkin(), "default_black");
@@ -94,10 +94,10 @@ public class SailingScreen extends BaseScreen {
         goldValueLabel = new Label(Integer.toString(main.getPlayer().getGold()), main.getSkin(), "default_black");
         goldValueLabel.setAlignment(Align.left);
 
-        uiTable.add(hullHealthTextLabel).fill();
-        uiTable.add(hullHealthValueLabel).fill();
         uiTable.add(sailsHealthTextLabel).fill();
         uiTable.add(sailsHealthValueLabel).fill();
+        uiTable.add(hullHealthTextLabel).fill();
+        uiTable.add(hullHealthValueLabel).fill();
         uiTable.row();
         uiTable.add(goldTextLabel).fill();
         uiTable.add(goldValueLabel).fill();
@@ -314,8 +314,8 @@ public class SailingScreen extends BaseScreen {
         }
 
         pointsValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPoints()));
-        hullHealthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHullHealth()));
         sailsHealthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getSailsHealth()));
+        hullHealthValueLabel.setText(Integer.toString(pirateGame.getPlayer().getPlayerShip().getHullHealth()));
     }
 
     @Override
