@@ -111,9 +111,6 @@ public class DepartmentTest extends GameTest {
 
     @Test
     public void getUpgradeCostNoUpgradeTest() {
-        when(pirateGame.getPlayer()).thenReturn(mock(Player.class));
-        when(pirateGame.getPlayer().getPlayerShip()).thenReturn(mock(Ship.class));
-
         Department noneDepartment = new Department("Wentworth", "", mock(Attack.class), pirateGame);
         // Should return 0 if the department has no upgrade to offer
         assertEquals(noneDepartment.getUpgradeCost(), 0);
