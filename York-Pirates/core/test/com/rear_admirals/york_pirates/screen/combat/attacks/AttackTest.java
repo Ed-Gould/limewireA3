@@ -25,7 +25,7 @@ public class AttackTest extends GameTest {
         // Assume attack never misses from now
         when(attacker.getAccMultiplier()).thenReturn(1.0f);
         when(attacker.getSailsHealth()).thenReturn(100);
-        System.
+        
 
 
     }
