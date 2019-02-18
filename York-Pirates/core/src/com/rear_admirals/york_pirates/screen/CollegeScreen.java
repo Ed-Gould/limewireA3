@@ -83,6 +83,7 @@ public class CollegeScreen extends BaseScreen {
         healTable.setX(viewwidth * -0.35f, Align.center);
         healTable.setFillParent(true);
 
+        // Sails and hull both have option to heal to max, or 10 health.
         final Label healText = new Label("Heal", main.getSkin(), "title");
         final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
         final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHealCost(hullHealthFromMax)) +" gold", main.getSkin());
@@ -144,9 +145,6 @@ public class CollegeScreen extends BaseScreen {
         }
 
         // Create buttons used to show minigame options
-        /**TODO: Make a button and add it to the minigameTable, after the line "minigameTable.row()"
-         * This will show up on the college menu
-         * */
         Table minigameTable = new Table();
         minigameTable.setX(viewwidth * 0.35f, Align.center);
         minigameTable.setFillParent(true);

@@ -81,6 +81,7 @@ public class DepartmentScreen extends BaseScreen {
 
         final Label healText = new Label("Heal", main.getSkin(), "title");
 
+        // Sails and hull both have option to heal to max, or 10 health.
         final TextButton healHullFullBtn = new TextButton("Fully heal ship hull for "+ Integer.toString(getHealCost(hullHealthFromMax)) +" gold", main.getSkin());
         final TextButton healSailsFullBtn = new TextButton("Fully heal ship sails for "+ Integer.toString(getHealCost(sailsHealthFromMax)) +" gold", main.getSkin());
         final TextButton healHullTenBtn = new TextButton("Heal 10 hull health for 1 gold", main.getSkin());
