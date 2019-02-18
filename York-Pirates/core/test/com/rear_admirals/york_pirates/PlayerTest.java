@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class PlayerTest extends GameTest {
 
     @Test
-    public void payGold() {
+    public void payGoldNoGoldTest() {
         Player player = new Player();
 
         // Player gold = 0
@@ -16,6 +16,11 @@ public class PlayerTest extends GameTest {
         assertFalse(player.payGold(50));
         assertTrue(player.payGold(0));
         assertEquals(player.getGold(), 0);
+    }
+
+    @Test
+    public void payGoldFailedTest() {
+        Player player = new Player();
 
         player.setGold(50);
         // Negative values originally were accepted, now changed
@@ -25,6 +30,13 @@ public class PlayerTest extends GameTest {
 
         assertFalse(player.payGold(51));
         assertFalse(player.payGold(100));
+    }
+
+    @Test
+    public void payGoldSuccessfulTest() {
+        Player player = new Player();
+
+        player.setGold(50);
 
         assertTrue(player.payGold(0));
         assertEquals(player.getGold(),50);
