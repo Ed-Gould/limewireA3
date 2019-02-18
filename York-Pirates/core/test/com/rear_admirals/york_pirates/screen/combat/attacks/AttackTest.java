@@ -8,10 +8,6 @@ import static org.junit.Assert.*;
 public class AttackTest extends GameTest {
 
     @Test
-    public void doesHit() {
-    }
-
-    @Test
     public void doAttack() {
     }
 }
