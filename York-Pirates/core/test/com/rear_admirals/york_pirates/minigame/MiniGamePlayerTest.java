@@ -14,4 +14,9 @@ public class MiniGamePlayerTest extends GameTest {
 
     }
 
+    @Test
+    public void movable() {
+
+    }
+
 }
