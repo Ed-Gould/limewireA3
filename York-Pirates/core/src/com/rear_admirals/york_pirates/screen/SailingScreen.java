@@ -22,7 +22,6 @@ import com.rear_admirals.york_pirates.base.BaseActor;
 import com.rear_admirals.york_pirates.PirateGame;
 import com.rear_admirals.york_pirates.base.BaseScreen;
 import com.rear_admirals.york_pirates.Ship;
-import sun.plugin2.util.PojoUtil;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
