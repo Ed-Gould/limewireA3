@@ -1,7 +1,6 @@
 package com.rear_admirals.york_pirates;
 
 import org.junit.Test;
-import sources.GameTest;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package sources;
+package com.rear_admirals.york_pirates;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
@@ -29,18 +29,9 @@ public class GameTest {
 
     // Before running any tests, initialise application with headless backend
     @BeforeClass
-
     public static void init() {
         application = new HeadlessApplication(new ApplicationListener() {
-            @Override public void create() {
-                Skin skin = Mockito.mock(Skin.class);
-                SpriteBatch batch = Mockito.mock(SpriteBatch.class);
-                BitmapFont font = Mockito.mock(BitmapFont.class);
-                Player player  = Mockito.mock(Player.class);
-
-                SailingScreen sailingScene = Mockito.mock(SailingScreen.class);
-
-            }
+            @Override public void create() {}
             @Override public void resize(int width, int height) {}
             @Override public void render() {}
             @Override public void pause() {}

@@ -5,11 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AttackTest extends GameTest {
-
-    @Test
-    public void doesHit() {
-    }
+public class FleeTest extends GameTest {
 
     @Test
     public void doAttack() {
