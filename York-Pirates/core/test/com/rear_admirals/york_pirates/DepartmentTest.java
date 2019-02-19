@@ -153,7 +153,6 @@ public class DepartmentTest extends GameTest {
         Department accuracyDepartment = new Department("James", "accuracy", mock(Attack.class), pirateGame);
         accuracyDepartment.getUpgradeCost();
 
-        // Check that each method is only called once for their respective department
         verify(pirateGame.getPlayer().getPlayerShip(), never()).getDefence();
         verify(pirateGame.getPlayer().getPlayerShip(), never()).getAtkMultiplier();
         verify(pirateGame.getPlayer().getPlayerShip()).getAccMultiplier();
