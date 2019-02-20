@@ -14,23 +14,23 @@ public class AttackTest extends GameTest {
         Attack attack = new Attack();
         Ship attacker = mock(Ship.class);
         Ship defender = mock(Ship.class);
-        when(attacker.getSailsHealth()).thenReturn(100);
-        when(defender.getSailsHealth()).thenReturn(100);
+        when(attacker.getSailsHealth()).thenReturn(150);
+        when(attacker.getAtkMultiplier()).thenReturn(1.0f);
 
         // set to 0 so doesHit returns false to test behaviour when an attack misses
         when(attacker.getAccMultiplier()).thenReturn(0f);
-        when(defender.getAccMultiplier()).thenReturn(0f);
-
 
         // if attack does not hit, no damage is caused
         assertEquals(attack.doAttack(attacker, defender), 0);
-        System.out.println(attack.doAttack(attacker, defender));
+
         // Assume attack never misses from now
-        when(attacker.getAccMultiplier()).thenReturn(1.0f);
-        when(defender.getAccMultiplier()).thenReturn(1.0f);
-        System.out.println(attack.doAttack(attacker, defender));
+        // Sails health is always 150 in this test to ensure doesHit returns true as long as accMultiplier = 1
+        when(attacker.getAccMultiplier()).thenReturn(1f);
 
+        assertNotEquals(attack.doAttack(attacker, defender), 0);
 
-
+        // Ensure damage is only applied to defending ship
+        verify(attacker, never()).damage(anyString(), anyInt());
+        verify(defender).damage(anyString(), anyInt());
     }
 }
